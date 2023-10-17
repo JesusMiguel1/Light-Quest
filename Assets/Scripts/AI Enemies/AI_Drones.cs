@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_Navigation : MonoBehaviour
+public class AI_Drones : MonoBehaviour
 {
     //Way point to create AI nav path
     private GameObject waypointsPrefab;
+
+    public float moveSpeed = 5f;
+    public Transform player; // Reference to the player's transform
+
+    private bool isMoving = false;
 
     //Floating variables
     private Vector3 InitialPosition;
@@ -19,13 +24,25 @@ public class AI_Navigation : MonoBehaviour
     void Start()
     {
         InitialPosition = transform.position;
+
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         FloatingAI();
-       // AIGroundLevelCheck();
+        // AIGroundLevelCheck();
+
+        if (!isMoving)
+        {
+            // Move towards the player if not already moving
+            MoveTowardsPlayer();
+            //transform.LookAt(player.transform.position);
+        }
     }
 
     private void FloatingAI()
@@ -47,10 +64,29 @@ public class AI_Navigation : MonoBehaviour
         Debug.DrawLine(transform.position + Vector3.up * 10f, Vector3.down, Color.red);
 
         rayToGround = new Ray(transform.position + Vector3.up * 10f, Vector3.down);
-        if (Physics.Raycast(rayToGround, out hitGround, Mathf.Infinity, LayerMask.GetMask("Ground"))) {
+        if (Physics.Raycast(rayToGround, out hitGround, Mathf.Infinity, LayerMask.GetMask("Ground")))
+        {
             float heightTarget = hitGround.point.y + groundCheckOffset;
             transform.position = new Vector3(transform.position.x, heightTarget, transform.position.z);
         }
-        
+
+    }
+
+    void MoveTowardsPlayer()
+    {
+        isMoving = true;
+
+        // Calculate the direction to the player
+        Vector3 direction = (player.position - transform.position).normalized;
+
+        // Move towards the player
+        transform.Translate(direction * moveSpeed * Time.deltaTime);
+
+        // Check if the unit has reached close to the player
+        if (Vector3.Distance(transform.position, player.position) < 1f)
+        {
+            // Stop moving
+            isMoving = false;
+        }
     }
 }

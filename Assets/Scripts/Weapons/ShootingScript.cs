@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class ShootingScript : MonoBehaviour
 {
-    [SerializeField] Transform bulletSpawner;
+    [SerializeField] Transform rightHandSpawner;
+    [SerializeField] Transform leftHandSpawner;
     RaycastHit hit;
     float distance = 100f;
     // Start is called before the first frame update
@@ -41,11 +42,9 @@ public class ShootingScript : MonoBehaviour
     private IVRInputDevice GetInput(VRInputDeviceHand hand)
     {
         var device = VRDevice.Device;
-        var rightHand = VRInputDeviceHand.Right;
-        var leftHand = VRInputDeviceHand.Left;
         
         //Debug.Log("Checking hands..." + hand);
-        return hand == leftHand ? device.SecondaryInputDevice : device.PrimaryInputDevice;
+        return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
 
     }
 
@@ -54,16 +53,37 @@ public class ShootingScript : MonoBehaviour
         var rightHandInput = GetInput(VRInputDeviceHand.Right);
         var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-        if (rightHandInput.GetButtonDown(VRButton.Trigger) || leftHandInput.GetButtonDown(VRButton.Trigger))
+        if (rightHandInput.GetButtonDown(VRButton.Trigger))
         {
-            Debug.Log("Lets start shooting");
-            if (Physics.Raycast(transform.position, transform.forward, out hit))
-            {
-                GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-                bullet.transform.position = transform.position;
-                bullet.transform.rotation = transform.rotation;
-            }
+            //Debug.Log("Lets start shooting");
+            RightHandShood();
+            
+        }
+        if (leftHandInput.GetButtonDown(VRButton.Trigger))
+        {
+            //Debug.Log("Lets start shooting");
+            LeftHandShood();
+
         }
 
+    }
+    private void RightHandShood()
+    {
+        if (Physics.Raycast(rightHandSpawner.position, rightHandSpawner.forward, out hit))
+        {
+            GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+            bullet.transform.position = rightHandSpawner.position;
+            bullet.transform.rotation = rightHandSpawner.rotation;
+        }
+    }
+
+    private void LeftHandShood()
+    {
+        if (Physics.Raycast(leftHandSpawner.position, leftHandSpawner.forward, out hit))
+        {
+            GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+            bullet.transform.position = leftHandSpawner.position;
+            bullet.transform.rotation = leftHandSpawner.rotation;
+        }
     }
 }

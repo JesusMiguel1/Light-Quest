@@ -41,8 +41,11 @@ public class ShootingScript : MonoBehaviour
     private IVRInputDevice GetInput(VRInputDeviceHand hand)
     {
         var device = VRDevice.Device;
+        var rightHand = VRInputDeviceHand.Right;
+        var leftHand = VRInputDeviceHand.Left;
+        
         //Debug.Log("Checking hands..." + hand);
-        return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
+        return hand == leftHand ? device.SecondaryInputDevice : device.PrimaryInputDevice;
 
     }
 
@@ -51,7 +54,7 @@ public class ShootingScript : MonoBehaviour
         var rightHandInput = GetInput(VRInputDeviceHand.Right);
         var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-        if (rightHandInput.GetButtonDown(VRButton.One))
+        if (rightHandInput.GetButtonDown(VRButton.Trigger) || leftHandInput.GetButtonDown(VRButton.Trigger))
         {
             Debug.Log("Lets start shooting");
             if (Physics.Raycast(transform.position, transform.forward, out hit))

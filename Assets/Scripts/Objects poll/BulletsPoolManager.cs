@@ -17,7 +17,7 @@ public class BulletsPoolManager : MonoBehaviour
         instance = this;
 
         //I needs to get the bullet prefab from the resources folder
-        bulletPrefab = Instantiate(Resources.Load("Bullet", typeof(GameObject))) as GameObject;
+        bulletPrefab = Resources.Load("Bullet", typeof(GameObject)) as GameObject;
 
         bullets = new List<GameObject>(bulletsAmount);
 

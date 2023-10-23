@@ -13,6 +13,9 @@ public class BulletScript : MonoBehaviour
         bulletLifeTime = bulletDuration;
     }
 
+    void Start() { 
+}
+
     // Update is called once per frame
     void Update()
     {
@@ -28,9 +31,23 @@ public class BulletScript : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    private void OnTriggerEnter(Collider other)
+
+    void OnCollisionEnter(Collision collision)
     {
-        // Debug.Log("Trigger action...." + other.gameObject.name);
-        Destroy(other.gameObject);
+        if(collision.gameObject.name == "R1_Enemy" || collision.gameObject.name == "D1")
+        {
+            //Destroy(collision.gameObject);
+            //Debug.Log("Collision" + collision.gameObject.name);
+            collision.gameObject.SetActive(false);
+        }
+       
     }
+    /* private void OnTriggerEnter(Collider other)
+     {
+         //if(other.gameObject.name == "R1_Enemy" || other.gameObject.name == "Drones")
+         //{
+             Destroy(other.gameObject);
+        // }
+
+     }*/
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     float bulletSpeed = 100f;
-    float bulletDuration = 1f;
+    float bulletDuration = 2f;
     float bulletLifeTime;
 
     void OnEnable()
@@ -32,7 +32,17 @@ public class BulletScript : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other) {
+        Debug.Log("Collision" + other.gameObject.name);
+        if (other.gameObject.name == "R1_Enemy" || other.gameObject.name == "D1")
+        {
+            //Destroy(collision.gameObject);
+            Debug.Log("Collision" + other.gameObject.name);
+            other.gameObject.SetActive(false);
+        }
+    }
+    
+   /* void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "R1_Enemy" || collision.gameObject.name == "D1")
         {

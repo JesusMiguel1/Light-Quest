@@ -8,60 +8,61 @@ public class AI_Drones : MonoBehaviour
     private GameObject waypointsPrefab;
 
     public float moveSpeed = 5f;
-    public Transform player; // Reference to the player's transform
+    Transform player; // Reference to the player's transform
 
     private bool isMoving = false;
 
     //Floating variables
-    private Vector3 InitialPosition;
-    private float floatingHorizontalOffset = 0.0f;
-    private float floatingHorizontalDistance = 0.3f;
-    private float verticalPositionOffset;
-    private float floatingHeight = 0.3f;
-    private float floatSpeed = 1.0f;
+    //private Vector3 InitialPosition;
+    //private float floatingHorizontalOffset = 0.0f;
+    //private float floatingHorizontalDistance = 0.3f;
+    //private float verticalPositionOffset;
+    //private float floatingHeight = 0.3f;
+    //private float floatSpeed = 1.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        InitialPosition = transform.position;
+        //InitialPosition = transform.position;
 
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindWithTag("Player").transform;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        FloatingAI();
+        //FloatingAI();
         // AIGroundLevelCheck();
 
-        if (!isMoving)
-        {
+        //if (!isMoving)
+        //{
             // Move towards the player if not already moving
-            MoveTowardsPlayer();
+        MoveTowardsPlayer();
+        AIGroundLevelCheck();
             //transform.LookAt(player.transform.position);
-        }
+        //}
     }
 
-    private void FloatingAI()
-    {
-        //Floating calculation 
-        verticalPositionOffset = Mathf.Sin(Time.time * floatSpeed) * floatingHeight;
-        floatingHorizontalOffset = Mathf.Sin(Time.time * floatSpeed * 0.5f) * floatingHorizontalDistance;
+    //private void FloatingAI()
+    //{
+    //    //Floating calculation 
+    //    verticalPositionOffset = Mathf.Sin(Time.time * floatSpeed) * floatingHeight;
+    //    floatingHorizontalOffset = Mathf.Sin(Time.time * floatSpeed * 0.5f) * floatingHorizontalDistance;
 
-        Vector3 newPosition = InitialPosition + Vector3.up * verticalPositionOffset + Vector3.right * floatingHorizontalOffset;
-        transform.position = newPosition;
+    //    Vector3 newPosition = InitialPosition + Vector3.up * verticalPositionOffset + Vector3.right * floatingHorizontalOffset;
+    //    transform.position = newPosition;
 
-    }
+    //}
     private void AIGroundLevelCheck()
     {
         Ray rayToGround;
         RaycastHit hitGround;
-        float groundCheckOffset = 2.0f;
+        float groundCheckOffset = 3.0f; //Height of the drone above the ground
 
-        Debug.DrawLine(transform.position + Vector3.up * 10f, Vector3.down, Color.red);
+        Debug.DrawLine(transform.position + Vector3.up * 0f, Vector3.down, Color.red);
 
         rayToGround = new Ray(transform.position + Vector3.up * 10f, Vector3.down);
         if (Physics.Raycast(rayToGround, out hitGround, Mathf.Infinity, LayerMask.GetMask("Ground")))
@@ -77,7 +78,7 @@ public class AI_Drones : MonoBehaviour
         isMoving = true;
 
         // Calculate the direction to the player
-        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 direction = (transform.position - player.position).normalized;
 
         // Move towards the player
         transform.Translate(direction * moveSpeed * Time.deltaTime);

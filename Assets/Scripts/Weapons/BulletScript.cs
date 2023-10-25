@@ -7,19 +7,27 @@ public class BulletScript : MonoBehaviour
     float bulletSpeed = 100f;
     float bulletDuration = 1f;
     float bulletLifeTime;
+    public SlowMotion slow;
+    public GameObject cube;
 
+    public SlowMotion powerup; 
     void OnEnable()
     {
         bulletLifeTime = bulletDuration;
     }
 
-    void Start() { 
-}
+    void Start() 
+    {
+       // cube = Instantiate(Resources.Load("Cube", typeof(GameObject))) as GameObject;
+    
+    }
 
     // Update is called once per frame
     void Update()
     {
         BulletDirection();
+        slow.SlowMotionPower();
+
     }
 
     void BulletDirection()
@@ -29,16 +37,19 @@ public class BulletScript : MonoBehaviour
         if (bulletLifeTime <= 0)
         {
             gameObject.SetActive(false);
+            
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.name == "R1_Enemy" || collision.gameObject.name == "D1")
+        if(other.gameObject.name == "R1_Enemy" || other.gameObject.name == "Powerup")
         {
             //Destroy(collision.gameObject);
             //Debug.Log("Collision" + collision.gameObject.name);
-            collision.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
+            
+
         }
        
     }

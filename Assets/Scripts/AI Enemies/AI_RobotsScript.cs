@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_RobotsScript : MonoBehaviour
 {
-    public float moveSpeed = 25f;
+    public float moveSpeed;
     public Transform player; // Reference to the player's transform
 
     private bool isMoving = false;

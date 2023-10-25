@@ -53,7 +53,7 @@ public class ShootingScript : MonoBehaviour
         var rightHandInput = GetInput(VRInputDeviceHand.Right);
         var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-        if (rightHandInput.GetButtonDown(VRButton.Trigger))
+        if (rightHandInput.GetButtonDown(VRButton.One))
         {
             //Debug.Log("Lets start shooting");
             RightHandShood();

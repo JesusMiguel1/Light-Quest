@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     float bulletSpeed = 100f;
-    float bulletDuration = 1f;
+    float bulletDuration = 2f;
     float bulletLifeTime;
     public SlowMotion slow;
     public GameObject cube;
@@ -41,7 +41,9 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+
     void OnTriggerEnter(Collider other)
+
     {
         if(other.gameObject.name == "R1_Enemy" || other.gameObject.name == "Powerup")
         {

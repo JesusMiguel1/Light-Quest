@@ -6197,7 +6197,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightHandSpawner: {fileID: 0}
   leftHandSpawner: {fileID: 1444844327}
+
 --- !u!1001 &1452798683
+
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -6212,17 +6214,23 @@ PrefabInstance:
     - target: {fileID: 4932289444895994804, guid: c0eda89e0d2eaed4c9af7f76ee84ed13,
         type: 3}
       propertyPath: m_LocalPosition.x
+
       value: -0.68
+
       objectReference: {fileID: 0}
     - target: {fileID: 4932289444895994804, guid: c0eda89e0d2eaed4c9af7f76ee84ed13,
         type: 3}
       propertyPath: m_LocalPosition.y
+
       value: 0.5
+
       objectReference: {fileID: 0}
     - target: {fileID: 4932289444895994804, guid: c0eda89e0d2eaed4c9af7f76ee84ed13,
         type: 3}
       propertyPath: m_LocalPosition.z
+
       value: 53.64
+
       objectReference: {fileID: 0}
     - target: {fileID: 4932289444895994804, guid: c0eda89e0d2eaed4c9af7f76ee84ed13,
         type: 3}
@@ -6247,7 +6255,9 @@ PrefabInstance:
     - target: {fileID: 4932289444895994804, guid: c0eda89e0d2eaed4c9af7f76ee84ed13,
         type: 3}
       propertyPath: m_RootOrder
+
       value: 2
+
       objectReference: {fileID: 0}
     - target: {fileID: 4932289444895994804, guid: c0eda89e0d2eaed4c9af7f76ee84ed13,
         type: 3}
@@ -6264,6 +6274,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 4932289444747925620, guid: c0eda89e0d2eaed4c9af7f76ee84ed13,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -6315,6 +6326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d749c5f11cb0a44da642afc9c6fde29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+
 --- !u!1 &1556448916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6488,7 +6500,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  player: {fileID: 0}
 --- !u!1 &1641884777
 GameObject:
   m_ObjectHideFlags: 0

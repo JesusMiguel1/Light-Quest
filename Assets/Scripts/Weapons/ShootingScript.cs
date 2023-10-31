@@ -10,12 +10,7 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] Transform leftHandSpawner;
     RaycastHit hit;
     float distance = 100f;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
+    
     // Update is called once per frame
     void Update()
     {

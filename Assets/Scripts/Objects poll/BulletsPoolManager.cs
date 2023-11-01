@@ -11,13 +11,19 @@ public class BulletsPoolManager : MonoBehaviour
     [SerializeField] List<GameObject> bullets;
     [SerializeField] int bulletsAmount = 10;
 
+    GameObject grenadePrefab; 
+    [SerializeField] List<GameObject> grenades;
+    [SerializeField] int grenadesAmount = 10;
+
     // Start is called before the first frame update
     void Awake()
     {
         instance = this;
 
         //I needs to get the bullet prefab from the resources folder
-        bulletPrefab = Resources.Load("Bullet", typeof(GameObject)) as GameObject;
+        grenadePrefab = Resources.Load("Grenade", typeof(GameObject)) as GameObject;
+
+        //bulletPrefab = Resources.Load("Bullet", typeof(GameObject)) as GameObject;
 
         bullets = new List<GameObject>(bulletsAmount);
 
@@ -28,6 +34,17 @@ public class BulletsPoolManager : MonoBehaviour
             instantiate.SetActive(false);
             bullets.Add(instantiate);
         }
+
+        grenades = new List<GameObject>(grenadesAmount);
+
+        for (int i = 0; i < grenadesAmount; i++)
+        {
+            GameObject instantiate = Instantiate(grenadePrefab);
+            //instantiate.transform.SetParent(transform);
+            instantiate.SetActive(false);
+            grenades.Add(instantiate);
+        }
+
     }
 
     public GameObject GetBullet()
@@ -40,9 +57,24 @@ public class BulletsPoolManager : MonoBehaviour
                 return bullet;
             }
         }
-        GameObject instantiate = Instantiate(bulletPrefab);
+        GameObject instantiate = Instantiate(grenadePrefab);
         instantiate.transform.SetParent(transform);
         bullets.Add(instantiate);
+        return instantiate;
+    }
+    public GameObject GetGrenade()
+    {
+        foreach (GameObject grenade in grenades)
+        {
+            if (!grenade.activeInHierarchy)
+            {
+                grenade.SetActive(true);
+                return grenade;
+            }
+        }
+        GameObject instantiate = Instantiate(grenadePrefab);
+        //instantiate.transform.SetParent(transform);
+        grenades.Add(instantiate);
         return instantiate;
     }
 }

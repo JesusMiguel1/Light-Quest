@@ -23,7 +23,7 @@ public class BulletsPoolManager : MonoBehaviour
         //I needs to get the bullet prefab from the resources folder
         grenadePrefab = Resources.Load("Grenade", typeof(GameObject)) as GameObject;
 
-        //bulletPrefab = Resources.Load("Bullet", typeof(GameObject)) as GameObject;
+        bulletPrefab = Resources.Load("Bullet", typeof(GameObject)) as GameObject;
 
         bullets = new List<GameObject>(bulletsAmount);
 
@@ -35,15 +35,15 @@ public class BulletsPoolManager : MonoBehaviour
             bullets.Add(instantiate);
         }
 
-        grenades = new List<GameObject>(grenadesAmount);
+        //grenades = new List<GameObject>(grenadesAmount);
 
-        for (int i = 0; i < grenadesAmount; i++)
-        {
-            GameObject instantiate = Instantiate(grenadePrefab);
-            //instantiate.transform.SetParent(transform);
-            instantiate.SetActive(false);
-            grenades.Add(instantiate);
-        }
+        //for (int i = 0; i < grenadesAmount; i++)
+        //{
+        //    GameObject instantiate = Instantiate(grenadePrefab);
+        //    instantiate.transform.SetParent(transform);
+        //    instantiate.SetActive(false);
+        //    grenades.Add(instantiate);
+        //}
 
     }
 
@@ -57,7 +57,7 @@ public class BulletsPoolManager : MonoBehaviour
                 return bullet;
             }
         }
-        GameObject instantiate = Instantiate(grenadePrefab);
+        GameObject instantiate = Instantiate(bulletPrefab);
         instantiate.transform.SetParent(transform);
         bullets.Add(instantiate);
         return instantiate;
@@ -73,7 +73,7 @@ public class BulletsPoolManager : MonoBehaviour
             }
         }
         GameObject instantiate = Instantiate(grenadePrefab);
-        //instantiate.transform.SetParent(transform);
+        instantiate.transform.SetParent(transform);
         grenades.Add(instantiate);
         return instantiate;
     }

@@ -13,7 +13,7 @@ public class ShootingScript : MonoBehaviour
 
     float range = 15f;
 
-    public Grenade grenadeScript; 
+    //public Grenade grenadeScript; 
 
     // Update is called once per frame
     void Update()
@@ -70,15 +70,15 @@ public class ShootingScript : MonoBehaviour
     {
         if (Physics.Raycast(rightHandSpawner.position, rightHandSpawner.forward, out hit))
         {
-            //GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-            //bullet.transform.position = rightHandSpawner.position;
-            //bullet.transform.rotation = rightHandSpawner.rotation;
+            GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+            bullet.transform.position = rightHandSpawner.position;
+            bullet.transform.rotation = rightHandSpawner.rotation;
 
-            GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
-            grenade.transform.position = rightHandSpawner.position;
-            grenade.transform.rotation = rightHandSpawner.rotation;
+            //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
+            //grenade.transform.position = rightHandSpawner.position;
+            //grenade.transform.rotation = rightHandSpawner.rotation;
 
-            grenade.GetComponent<Rigidbody>().AddForce( rightHandSpawner.forward * range, ForceMode.Impulse);
+            //grenade.GetComponent<Rigidbody>().AddForce( rightHandSpawner.forward * range, ForceMode.Impulse);
             
 
         }

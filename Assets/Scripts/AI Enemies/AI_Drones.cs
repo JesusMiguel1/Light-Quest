@@ -1,93 +1,142 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Experimental.PlayerLoop;
+using Valve.VR.InteractionSystem;
 
 public class AI_Drones : MonoBehaviour
 {
-    //Way point to create AI nav path
-    private GameObject waypointsPrefab;
-
-    public float moveSpeed = 5f;
+    private float moveSpeed = 5f;
+    public float rotationSpeed = 10.0f;
+    public float detectPlayerRadius = 1.0f;
+    public float patrolChangeInterval = 5f; // Time interval to change patrol direction
+    private float lastPatrolChangeTime;
+    private Vector3 patrolDirection; // Current patrol direction
+    Vector3 movement;
     Transform player; // Reference to the player's transform
+    Rigidbody rb;
 
-    private bool isMoving = false;
-
-    //Floating variables
-    //private Vector3 InitialPosition;
-    //private float floatingHorizontalOffset = 0.0f;
-    //private float floatingHorizontalDistance = 0.3f;
-    //private float verticalPositionOffset;
-    //private float floatingHeight = 0.3f;
-    //private float floatSpeed = 1.0f;
-
-    // Start is called before the first frame update
     void Start()
     {
-        //InitialPosition = transform.position;
-
+        rb = this.GetComponent<Rigidbody>();
         if (player == null)
         {
-            player = GameObject.FindWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").transform;
         }
+
+        // Initialize patrol direction
+        patrolDirection = GetRandomDirection();
+        lastPatrolChangeTime = Time.time;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //FloatingAI();
-        // AIGroundLevelCheck();
+            StartCoroutine(MoveToPlayer());
+       
+            // Patrol behavior: change patrol direction at intervals
+        if (Time.time - lastPatrolChangeTime <= patrolChangeInterval)
+        {
+            patrolDirection = GetRandomDirection();
+            lastPatrolChangeTime = Time.time;
+            
+        }
 
-        //if (!isMoving)
-        //{
-            // Move towards the player if not already moving
-        MoveTowardsPlayer();
-        AIGroundLevelCheck();
-            //transform.LookAt(player.transform.position);
-        //}
+        // Move in the current patrol direction
+        movement = patrolDirection.normalized;// This give a weird shake to the drones
+
+
+    }
+     IEnumerator MoveToPlayer()
+    {
+        yield return new WaitForSeconds(2);
+        Vector3 moveDirection = player.position - transform.position;
+        if (moveDirection.magnitude >= detectPlayerRadius)
+        {
+            moveSpeed = 10f;
+            // Rotate towards the player
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            // Move towards the player
+            movement = moveDirection.normalized;
+        }
+
+    }
+    private void FixedUpdate()
+    {
+        MoveDroneTowardsPlayer(movement);
     }
 
-    //private void FloatingAI()
+    void MoveDroneTowardsPlayer(Vector3 direction)
+    {
+        // Move the drone using rigidbody
+        rb.MovePosition(transform.position + (direction * moveSpeed * Time.deltaTime));
+    }
+
+    Vector3 GetRandomDirection()
+    {
+        // Get a random direction for patrolling
+        float randomX = Random.Range(-1f, 15f);
+        float randomZ = Random.Range(-1f, 15f);
+        float randomY = Random.Range(-1f, 5f);
+
+        return new Vector3(randomX, randomY, randomZ).normalized;
+    }
+
+
+
+
+
+
+
+
+    ////Way point to create AI nav path
+
+    //private float moveSpeed = 5f;
+    //public float rotationSpeed = 3.0f;
+    //public float detectPlayerRadius = 5.0f;
+    //public float wayPointDistance = 0;
+    //Transform player; // Reference to the player's transform
+    //Vector3 movement;
+
+    //Rigidbody rb;
+
+
+    //void Start()
     //{
-    //    //Floating calculation 
-    //    verticalPositionOffset = Mathf.Sin(Time.time * floatSpeed) * floatingHeight;
-    //    floatingHorizontalOffset = Mathf.Sin(Time.time * floatSpeed * 0.5f) * floatingHorizontalDistance;
+    //    //InitialPosition = transform.position;
+    //    rb = this.GetComponent<Rigidbody>();
 
-    //    Vector3 newPosition = InitialPosition + Vector3.up * verticalPositionOffset + Vector3.right * floatingHorizontalOffset;
-    //    transform.position = newPosition;
-
+    //    if (player == null)
+    //    {
+    //        player = GameObject.FindGameObjectWithTag("Player").transform;
+    //    }
     //}
-    private void AIGroundLevelCheck()
-    {
-        Ray rayToGround;
-        RaycastHit hitGround;
-        float groundCheckOffset = 3.0f; //Height of the drone above the ground
 
-        Debug.DrawLine(transform.position + Vector3.up * 0f, Vector3.down, Color.red);
+    //void Update()
+    //{
+    //    Vector3 moveDirection = player.position - transform.position;
+    //    float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+    //    Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    //    rb.rotation = rotation;
+    //    moveDirection.Normalize();
+    //    movement = moveDirection;
 
-        rayToGround = new Ray(transform.position + Vector3.up * 10f, Vector3.down);
-        if (Physics.Raycast(rayToGround, out hitGround, Mathf.Infinity, LayerMask.GetMask("Ground")))
-        {
-            float heightTarget = hitGround.point.y + groundCheckOffset;
-            transform.position = new Vector3(transform.position.x, heightTarget, transform.position.z);
-        }
+    //    transform.LookAt(player.transform.position);
+    //}
+    //private void FixedUpdate()
+    //{
+    //    MoveDroneTowardsPlayer(movement);
+    //}
 
-    }
+    //void MoveDroneTowardsPlayer(Vector3 direction) {
 
-    void MoveTowardsPlayer()
-    {
-        isMoving = true;
+    //    rb.MovePosition(transform.position + (direction * moveSpeed * Time.deltaTime));
+    //}
 
-        // Calculate the direction to the player
-        Vector3 direction = (transform.position - player.position).normalized;
-
-        // Move towards the player
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
-
-        // Check if the unit has reached close to the player
-        if (Vector3.Distance(transform.position, player.position) < 1f)
-        {
-            // Stop moving
-            isMoving = false;
-        }
-    }
 }
+
+
+
+

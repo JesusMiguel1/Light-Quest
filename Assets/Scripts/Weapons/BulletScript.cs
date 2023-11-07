@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Liminal.SDK.VR.Avatars.Interaction;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
@@ -6,21 +7,22 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     float bulletSpeed = 100f;
-    float bulletDuration = 2f;
+    float bulletDuration = 1f;
     float bulletLifeTime;
-
+    
     GameObject explosion;
-    //public SlowMotion slow;
-    //ParticlesExplosion explosion;
 
-    //public SlowMotion powerup; 
+    private HashSet<string> allowedNames;
+
     void OnEnable()
     {
+        allowedNames = new HashSet<string> { "D1(Clone)", "R1_Enemy", "Powerup", "Sphere" };
         bulletLifeTime = bulletDuration;
+
+        
         //explosion = GetComponent<ParticlesExplosion>();
 
     }
-
 
     // Update is called once per frame
     void Update()
@@ -45,18 +47,26 @@ public class BulletScript : MonoBehaviour
     void OnCollisionEnter(Collision other)
 
     {
-        if(other.gameObject.name == "D1" || other.gameObject.name == "R1_Enemy" || other.gameObject.name == "Powerup" )
+        if (allowedNames.Contains(other.gameObject.name))
         {
-            //Destroy(collision.gameObject);
-            Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>" );
+            //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
             other.gameObject.SetActive(false);
-            //explosion.OnDestroyObject();
             ColorfullExplosion();
-           
+            
         }
 
 
-      void ColorfullExplosion()
+        //if(other.gameObject.name == "D1(Clone)" || other.gameObject.name == "R1_Enemy" || other.gameObject.name == "Powerup" || other.gameObject.name == "Sphere")
+        //{
+        //    //Destroy(collision.gameObject);
+        //    Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>" );
+        //    other.gameObject.SetActive(false);
+        //    //explosion.OnDestroyObject();
+        //    ColorfullExplosion();
+        //}
+
+
+        void ColorfullExplosion()
         {
             explosion = DestructiblePoolManager.Instance.GetPieces();
             explosion.transform.position = transform.position;

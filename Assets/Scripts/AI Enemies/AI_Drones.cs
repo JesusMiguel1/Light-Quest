@@ -1,68 +1,83 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Experimental.PlayerLoop;
-using Valve.VR.InteractionSystem;
+using UnityEngine.UIElements;
 
 public class AI_Drones : MonoBehaviour
 {
     private float moveSpeed = 5f;
-    public float rotationSpeed = 10.0f;
-    public float detectPlayerRadius = 1.0f;
-    public float patrolChangeInterval = 5f; // Time interval to change patrol direction
-    private float lastPatrolChangeTime;
-    private Vector3 patrolDirection; // Current patrol direction
+    private float rotationSpeed = 20;
+    private float detectPlayerRadius = 0.1f;
+    private bool ifMovingToPlayer = false;
     Vector3 movement;
     Transform player; // Reference to the player's transform
     Rigidbody rb;
 
+    GameObject wayPointPrefab;
+    GameObject explosion;
+
+    public AudioClip audioClips;
+
+    private AudioManager audioManager;
+
+
     void Start()
     {
+       
         rb = this.GetComponent<Rigidbody>();
+
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
+        audioManager = FindObjectOfType<AudioManager>();
 
         // Initialize patrol direction
-        patrolDirection = GetRandomDirection();
-        lastPatrolChangeTime = Time.time;
     }
 
     void Update()
     {
-            StartCoroutine(MoveToPlayer());
-       
-            // Patrol behavior: change patrol direction at intervals
-        if (Time.time - lastPatrolChangeTime <= patrolChangeInterval)
-        {
-            patrolDirection = GetRandomDirection();
-            lastPatrolChangeTime = Time.time;
-            
+
+
+        if(!ifMovingToPlayer) {
+            float randomX = Random.Range(0f, 20f) ;
+            float randomY = Random.Range(0f, 5f) ;
+            float randomZ = Random.Range(20f, 0f);
+
+            Vector3 newPosition = new Vector3(randomX,  randomY, randomZ);
+            transform.Translate(newPosition * moveSpeed * Time.deltaTime);
         }
 
-        // Move in the current patrol direction
-        movement = patrolDirection.normalized;// This give a weird shake to the drones
+
+        StartCoroutine(MoveToPlayer());
 
 
     }
-     IEnumerator MoveToPlayer()
+
+    
+    #region Move towards player 
+    IEnumerator MoveToPlayer()
     {
-        yield return new WaitForSeconds(2);
+        float randomTime = Random.Range(0.1f, 4.1f);
+        yield return new WaitForSeconds(randomTime);
+        ifMovingToPlayer = true;
         Vector3 moveDirection = player.position - transform.position;
-        if (moveDirection.magnitude >= detectPlayerRadius)
+        if (moveDirection.magnitude >= detectPlayerRadius && ifMovingToPlayer)
         {
-            moveSpeed = 10f;
+            moveSpeed = Random.Range(10f,25f);
             // Rotate towards the player
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
             // Move towards the player
             movement = moveDirection.normalized;
         }
 
     }
+    #endregion
+
+
+    #region Fixed update move the drone
     private void FixedUpdate()
     {
         MoveDroneTowardsPlayer(movement);
@@ -73,21 +88,46 @@ public class AI_Drones : MonoBehaviour
         // Move the drone using rigidbody
         rb.MovePosition(transform.position + (direction * moveSpeed * Time.deltaTime));
     }
+    #endregion
 
-    Vector3 GetRandomDirection()
+    void OnCollisionEnter(Collision other)
+
     {
-        // Get a random direction for patrolling
-        float randomX = Random.Range(-1f, 15f);
-        float randomZ = Random.Range(-1f, 15f);
-        float randomY = Random.Range(-1f, 5f);
+        if (other.gameObject.name == "Player")
+        {
+            //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
+            gameObject.SetActive(false);
+            ColorfullExplosion();
 
-        return new Vector3(randomX, randomY, randomZ).normalized;
+        }
+        if (other.gameObject.name == "Bullet(Clone)")
+        {
+            AudioManager.Instance.PlayOneShot(audioClips);
+            //// int clipsIndex = Random.Range(0, audioClips.Length);
+            //if (audioManager != null)
+            //{
+            //    audioManager.PlayOneShot(audioClips);
+            //}
+        }
+    }
+
+    void ColorfullExplosion()
+    {
+        explosion = DestructiblePoolManager.Instance.GetPieces();
+        explosion.transform.position = transform.position;
+
     }
 
 
+    //Vector3 GetRandomDirection()
+    //{
+    //    // Get a random direction for patrolling
+    //    float randomX = Random.Range(-1f, 20f);
+    //    float randomZ = Random.Range(-1f, 20f);
+    //    float randomY = Random.Range(-1f, 2f);
 
-
-
+    //    return new Vector3(randomX,  randomZ).normalized;
+    //}
 
 
 

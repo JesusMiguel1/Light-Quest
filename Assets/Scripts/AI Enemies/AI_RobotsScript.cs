@@ -5,17 +5,23 @@ using UnityEngine;
 public class AI_RobotsScript : MonoBehaviour
 {
     public float moveSpeed;
-    public Transform player; // Reference to the player's transform
+    Transform player; // Reference to the player's transform
+    GameObject explosion;
 
     private bool isMoving = false;
+
+    public AudioClip audioClips;
+
+    private AudioManager audioManager;
 
     void Start()
     {
         // Find the player object in the scene if not assigned in the inspector
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindWithTag("Player").transform;
         }
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -45,5 +51,27 @@ public class AI_RobotsScript : MonoBehaviour
             isMoving = false;
         }
     }
+    void OnCollisionEnter(Collision other)
 
+    {
+        if (other.gameObject.name == "Player")
+        {
+            //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
+            gameObject.SetActive(false);
+            ColorfullExplosion();
+
+        }
+        if (other.gameObject.name == "Bullet(Clone)")
+        {
+            AudioManager.Instance.PlayOneShot(audioClips);
+           
+        }
+    }
+
+    void ColorfullExplosion()
+    {
+        explosion = DestructiblePoolManager.Instance.GetPieces();
+        explosion.transform.position = transform.position;
+
+    }
 }

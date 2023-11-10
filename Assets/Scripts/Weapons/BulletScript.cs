@@ -11,12 +11,12 @@ public class BulletScript : MonoBehaviour
     float bulletLifeTime;
     
     GameObject explosion;
-
+    
     private HashSet<string> allowedNames;
 
     void OnEnable()
     {
-        allowedNames = new HashSet<string> { "D1(Clone)", "R1_Enemy", "Powerup", "Sphere" };
+        allowedNames = new HashSet<string> { "D1(Clone)", "R1_Enemy(Clone)", "Powerup", "Sphere" };
         bulletLifeTime = bulletDuration;
 
         
@@ -38,7 +38,7 @@ public class BulletScript : MonoBehaviour
         if (bulletLifeTime <= 0)
         {
             gameObject.SetActive(false);
-            explosion.SetActive(false);
+           // explosion.SetActive(false);
 
         }
     }
@@ -54,6 +54,7 @@ public class BulletScript : MonoBehaviour
             ColorfullExplosion();
             
         }
+       
 
 
         //if(other.gameObject.name == "D1(Clone)" || other.gameObject.name == "R1_Enemy" || other.gameObject.name == "Powerup" || other.gameObject.name == "Sphere")

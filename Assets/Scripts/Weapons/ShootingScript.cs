@@ -10,11 +10,17 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] Transform leftHandSpawner;
     RaycastHit hit;
     float distance = 100f;
-
     float range = 15f;
+
+    public AudioClip audioClip;
+    AudioSource audioSource;
 
     //public Grenade grenadeScript; 
 
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();  
+    }
     // Update is called once per frame
     void Update()
     {
@@ -56,13 +62,21 @@ public class ShootingScript : MonoBehaviour
         {
             //Debug.Log("Lets start shooting");
             RightHandShood();
-            
+            if (audioSource != null && audioClip != null)
+            {
+                audioSource.volume = 0.05f;
+                audioSource.PlayOneShot(audioClip);
+            }
         }
         if (leftHandInput.GetButtonDown(VRButton.Trigger))
         {
             //Debug.Log("Lets start shooting");
             LeftHandShood();
-
+            if (audioSource != null && audioClip != null)
+            {
+                audioSource.volume = 0.05f;
+                audioSource.PlayOneShot(audioClip);
+            }
         }
 
     }

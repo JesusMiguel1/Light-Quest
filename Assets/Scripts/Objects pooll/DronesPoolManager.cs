@@ -7,16 +7,18 @@ public class DronesPoolManager : MonoBehaviour
     private static DronesPoolManager instance;
     public static DronesPoolManager Instance { get { return instance; } }
 
+
     GameObject firstDrone;
     GameObject secondDrone;
 
     GameObject[] policeDronePrefab;
     private List<GameObject> drones;
 
-    private int dronesAmount = Random.Range(1, 10);
+    private int dronesAmount;
     // Start is called before the first frame update
     void Awake()
     {
+        dronesAmount = Random.Range(1, 10);
         instance = this;
         drones = new List<GameObject>(dronesAmount);
         firstDrone = Resources.Load("D1", typeof(GameObject)) as GameObject;

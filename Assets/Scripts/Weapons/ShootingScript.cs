@@ -4,107 +4,116 @@ using Liminal.SDK.VR.Input;
 using Liminal.SDK.VR;
 using UnityEngine;
 
-public class ShootingScript : MonoBehaviour
+namespace punk_vs_robots 
 {
-    [SerializeField] Transform rightHandSpawner;
-    [SerializeField] Transform leftHandSpawner;
-    RaycastHit hit;
-    float distance = 100f;
-    float range = 15f;
-
-    public AudioClip audioClip;
-    AudioSource audioSource;
-
-    //public Grenade grenadeScript; 
-
-    void Start()
+    public class ShootingScript : MonoBehaviour
     {
-        audioSource = GetComponent<AudioSource>();  
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        CheckIfEnemy();
-        Fire();
+        [SerializeField] Transform rightHandSpawner;
+        [SerializeField] Transform leftHandSpawner;
 
-    }
+        LayerMask enemyMask;
+        RaycastHit hit;
+        LineRenderer laser;
+        float distance = 100f;
+        float range = 15f;
 
-    //Raycast to find enemy to shoot at them
-    void CheckIfEnemy()
-    {
-        //Ray ray;
-        float speed = 10f;
+        public AudioClip audioClip;
+        AudioSource audioSource;
 
+        //public Grenade grenadeScript; 
 
-        Vector3 forward = transform.TransformDirection(Vector3.forward) * speed;
-        if (Physics.Raycast(transform.position, forward, out hit, distance, LayerMask.GetMask("Enemy")))
+        void Start()
         {
-            Debug.DrawRay(transform.position, forward, Color.green);
-            //Debug.Log("Hitting something... " + hit.point);
+            enemyMask = 1 << 9;
+            laser = GetComponent<LineRenderer>();
+            audioSource = GetComponent<AudioSource>();
         }
-    }
 
-    private IVRInputDevice GetInput(VRInputDeviceHand hand)
-    {
-        var device = VRDevice.Device;
-        
-        //Debug.Log("Checking hands..." + hand);
-        return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
-
-    }
-    
-    private void Fire()
-    {
-        var rightHandInput = GetInput(VRInputDeviceHand.Right);
-        var leftHandInput = GetInput(VRInputDeviceHand.Left);
-
-        if (rightHandInput.GetButtonDown(VRButton.One))
+        void Update()
         {
-            //Debug.Log("Lets start shooting");
-            RightHandShood();
-            if (audioSource != null && audioClip != null)
-            {
-                audioSource.volume = 0.05f;
-                audioSource.PlayOneShot(audioClip);
-            }
+            CheckIfEnemy();
+            Fire();
+
         }
-        if (leftHandInput.GetButtonDown(VRButton.Trigger))
+
+        //Raycast to find enemy to shoot at them
+        void CheckIfEnemy()
         {
-            //Debug.Log("Lets start shooting");
-            LeftHandShood();
-            if (audioSource != null && audioClip != null)
+            //Ray ray;
+            float speed = 10f;
+
+            //var bulletTrace = Instantiate();
+            Vector3 forward = transform.TransformDirection(Vector3.forward) * speed;
+            if (Physics.Raycast(transform.position, forward, out hit, distance, enemyMask))
             {
-                audioSource.volume = 0.05f;
-                audioSource.PlayOneShot(audioClip);
+                Debug.DrawRay(transform.position, forward, Color.green);
+                //Debug.Log("Hitting something... " + hit.point);
             }
         }
 
-    }
-    private void RightHandShood()
-    {
-        if (Physics.Raycast(rightHandSpawner.position, rightHandSpawner.forward, out hit))
+        private IVRInputDevice GetInput(VRInputDeviceHand hand)
         {
-            GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-            bullet.transform.position = rightHandSpawner.position;
-            bullet.transform.rotation = rightHandSpawner.rotation;
+            var device = VRDevice.Device;
 
-            //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
-            //grenade.transform.position = rightHandSpawner.position;
-            //grenade.transform.rotation = rightHandSpawner.rotation;
-
-            //grenade.GetComponent<Rigidbody>().AddForce( rightHandSpawner.forward * range, ForceMode.Impulse);
-            
+            //Debug.Log("Checking hands..." + hand);
+            return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
 
         }
-    }
 
-    private void LeftHandShood()
-    {
-        if (Physics.Raycast(leftHandSpawner.position, leftHandSpawner.forward, out hit))
+        private void Fire()
         {
-            GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-            bullet.transform.position = leftHandSpawner.position;
-            bullet.transform.rotation = leftHandSpawner.rotation;
+            var rightHandInput = GetInput(VRInputDeviceHand.Right);
+            var leftHandInput = GetInput(VRInputDeviceHand.Left);
+
+            if (rightHandInput.GetButtonDown(VRButton.One))
+            {
+                //Debug.Log("Lets start shooting");
+                RightHandShood();
+                if (audioSource != null && audioClip != null)
+                {
+                    audioSource.volume = 0.05f;
+                    audioSource.PlayOneShot(audioClip);
+                }
+            }
+            if (leftHandInput.GetButtonDown(VRButton.Trigger))
+            {
+                //Debug.Log("Lets start shooting");
+                LeftHandShood();
+                if (audioSource != null && audioClip != null)
+                {
+                    audioSource.volume = 0.05f;
+                    audioSource.PlayOneShot(audioClip);
+                }
+            }
+
+        }
+        private void RightHandShood()
+        {
+            if (Physics.Raycast(rightHandSpawner.position, rightHandSpawner.forward, out hit))
+            {
+                GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+                bullet.transform.position = rightHandSpawner.position;
+                bullet.transform.rotation = rightHandSpawner.rotation;
+
+                //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
+                //grenade.transform.position = rightHandSpawner.position;
+                //grenade.transform.rotation = rightHandSpawner.rotation;
+
+                //grenade.GetComponent<Rigidbody>().AddForce( rightHandSpawner.forward * range, ForceMode.Impulse);
+
+
+            }
+        }
+
+        private void LeftHandShood()
+        {
+            if (Physics.Raycast(leftHandSpawner.position, leftHandSpawner.forward, out hit))
+            {
+                GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+                bullet.transform.position = leftHandSpawner.position;
+                bullet.transform.rotation = leftHandSpawner.rotation;
+            }
         }
     }
 }
+

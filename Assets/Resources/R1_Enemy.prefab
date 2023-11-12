@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  player: {fileID: 7033361905032328129, guid: a0f0b9ef13f25544b9d66ee932d083a2, type: 3}
   audioClips: {fileID: 8300000, guid: 48c3162e8c01c5f4dad133459ade6e4b, type: 3}
 --- !u!82 &940453801645279889
 AudioSource:
@@ -325,12 +326,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4449344505805901850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e50e7f9beb1a9143a82f3ae801c54e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cube: {fileID: 0}
+  cube: {fileID: 1562992997005475245, guid: 08fcc80dd72ddc8409f27912c67cf776, type: 3}
+  robot: []
   destroyed: 0
   cubeDestroyed: 0
   powerUp: 0

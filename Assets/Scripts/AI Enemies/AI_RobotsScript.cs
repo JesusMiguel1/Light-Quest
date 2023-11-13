@@ -47,16 +47,7 @@ namespace punk_vs_robots
                 audioSource.volume = 0.05f;
                 audioSource.PlayOneShot(policeAudioClips);
             }
-            //if (!ifMovingToPlayer)
-            //{
-            //    float randomX = Random.Range(0f, 20f);
-            //    float randomY = Random.Range(0f, 5f);
-            //    float randomZ = Random.Range(20f, 0f);
-
-            //    Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
-            //    transform.Translate(newPosition * moveSpeed * Time.deltaTime);
-            //}
-
+            
 
             StartCoroutine(MoveToPlayer());
 

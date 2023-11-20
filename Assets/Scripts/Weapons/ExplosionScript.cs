@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace punk_vs_robots
+namespace object_pool
 {
     public class ExplosionScript : MonoBehaviour
     {

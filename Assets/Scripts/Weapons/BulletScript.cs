@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace punk_vs_robots
+namespace object_pool
 {
     public class BulletScript : MonoBehaviour
     {
-        float bulletSpeed = 100f;
+        float bulletSpeed = 50f;
         float bulletDuration = 1f;
         float bulletLifeTime;
 
         GameObject explosion;
+        
 
         private HashSet<string> allowedNames;
+        GlobalStrings strings;
 
         void OnEnable()
         {
-            allowedNames = new HashSet<string> { "D1(Clone)", "R1_Enemy(Clone)", "Powerup", "Sphere" };
+            strings = new GlobalStrings();
+            allowedNames = new HashSet<string> { strings.slapperClone, "R1_Enemy(Clone)", "Powerup",strings.EnemyTrigger };
             bulletLifeTime = bulletDuration;
 
 
@@ -41,7 +44,6 @@ namespace punk_vs_robots
 
             }
         }
-
 
         void OnCollisionEnter(Collision other)
 

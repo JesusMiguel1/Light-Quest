@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace punk_vs_robots
+namespace object_pool
 {
     public class DestructiblePoolManager : MonoBehaviour
     {
@@ -10,6 +10,7 @@ namespace punk_vs_robots
         public static DestructiblePoolManager Instance { get { return instance; } }
 
         private GameObject piecePrefab;
+        private GameObject hitPlayerPrefab;
 
         private List<GameObject> pieces;
         private int amountOfPieces = 10;
@@ -18,6 +19,7 @@ namespace punk_vs_robots
         {
             instance = this;
             piecePrefab = Resources.Load("ParticlesExplosion", typeof(GameObject)) as GameObject;
+            hitPlayerPrefab = Resources.Load("CenterExplosion", typeof(GameObject)) as GameObject;
 
             pieces = new List<GameObject>(amountOfPieces);
 
@@ -27,6 +29,15 @@ namespace punk_vs_robots
 
                 //We add pieces is there is not pieces
                 GameObject instantiate = Instantiate(piecePrefab);
+                instantiate.transform.SetParent(transform);
+                instantiate.SetActive(false);
+                pieces.Add(instantiate);
+            }
+            for (int i = 0; i < amountOfPieces; i++)
+            {
+
+                //We add pieces is there is not pieces
+                GameObject instantiate = Instantiate(hitPlayerPrefab);
                 instantiate.transform.SetParent(transform);
                 instantiate.SetActive(false);
                 pieces.Add(instantiate);
@@ -47,6 +58,25 @@ namespace punk_vs_robots
             }
             //piecePrefab = Resources.Load("Piece", typeof(GameObject)) as GameObject;
             GameObject instantiate = Instantiate(piecePrefab);
+            instantiate.transform.SetParent(transform);
+            pieces.Add(instantiate);
+
+            return instantiate;
+        }
+
+        public GameObject GetExplosionPieces()
+        {
+            foreach (GameObject piece in pieces)
+            {
+                if (!piece.activeInHierarchy)
+                {
+                    piece.SetActive(true);
+                    return piece;
+                }
+
+            }
+            //piecePrefab = Resources.Load("Piece", typeof(GameObject)) as GameObject;
+            GameObject instantiate = Instantiate(hitPlayerPrefab);
             instantiate.transform.SetParent(transform);
             pieces.Add(instantiate);
 

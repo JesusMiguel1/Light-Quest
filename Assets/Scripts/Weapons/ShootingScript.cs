@@ -4,21 +4,21 @@ using Liminal.SDK.VR.Input;
 using Liminal.SDK.VR;
 using UnityEngine;
 
-namespace punk_vs_robots 
+namespace object_pool 
 {
     public class ShootingScript : MonoBehaviour
     {
-        [SerializeField] Transform rightHandSpawner;
-        [SerializeField] Transform leftHandSpawner;
+        [SerializeField] private Transform rightHandSpawner;
+        [SerializeField] private Transform leftHandSpawner;
 
-        LayerMask enemyMask;
-        RaycastHit hit;
-        LineRenderer laser;
-        float distance = 100f;
-        float range = 15f;
+        private LayerMask enemyMask;
+        private RaycastHit hit;
+        private LineRenderer laser;
+        private float distance = 100f;
+        private float range = 15f;
 
         public AudioClip audioClip;
-        AudioSource audioSource;
+        private AudioSource audioSource;
 
         //public Grenade grenadeScript; 
 
@@ -57,7 +57,6 @@ namespace punk_vs_robots
 
             //Debug.Log("Checking hands..." + hand);
             return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
-
         }
 
         private void Fire()

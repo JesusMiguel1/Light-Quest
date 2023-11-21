@@ -6,14 +6,18 @@ namespace object_pool
 {
     public class EnemySpawner : MonoBehaviour
     {
-        private int enemiesAmount = 3;
-        private int numberOfWaves = 5;
+        private int enemiesAmount = 1;
+        private int numberOfWaves = 15;
         private float delayWave = 2f;
         private GameObject enemy;
+        private float speed = 10f;
+
+        public SpeedManager speedManager;
 
         void Start()
         {
             StartCoroutine(SpawnEnemiesTrigger());
+            speedManager = GetComponent<SpeedManager>();
         }
 
         IEnumerator SpawnEnemiesTrigger()
@@ -24,7 +28,7 @@ namespace object_pool
             for (int wave = 0; wave < numberOfWaves; wave++)
             {
                 yield return StartCoroutine(SpawnWave(enemiesAmount, timeToSpawn));
-                enemiesAmount += 3;
+                enemiesAmount += 1;
                 yield return new WaitForSeconds(waveTimeToSpan * delayWave);
             }
         }
@@ -36,6 +40,8 @@ namespace object_pool
                 enemy = DronesPoolManager.Instance.GetDrones();
                 enemy.transform.position = new Vector3(Random.Range(-50, 50), 1f, Random.Range(-50, 50));
                 enemy.transform.rotation = transform.rotation;
+
+               // speedManager.OnSpeedChanged(speed+=5);
                 yield return new WaitForSeconds(spawnDelay);
             }
         }

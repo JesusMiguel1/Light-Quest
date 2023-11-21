@@ -53,8 +53,8 @@ public class EnemyManager : MonoBehaviour
     Vector3 GetRandomSpawnPosition()
     {
         // Implement your logic to get random spawn positions here
-        float x = Random.Range(-10f, 10f);
-        float z = Random.Range(-10f, 10f);
+        float x = Random.Range(-30f, 30f);
+        float z = Random.Range(-30f, 30f);
         return new Vector3(x, 0.5f, z);
     }
     public void EnemyDestroyed()

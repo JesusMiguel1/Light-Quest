@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class SpeedManager : MonoBehaviour, SpeedControllerResponse
 {
-    private float patrollingSpeed = 10f;
-    private float movingToPlayerSpeed = 20f ;
+    float currentSpeed;
     public void OnMovingSpeed(float speed)
-    {
-        patrollingSpeed = speed * 5f;
+    { 
+        currentSpeed = speed;
     }
 
-    public void OnSpeedChanged(float speed)
+    public float OnSpeedChanged(float speed)
     {
-        movingToPlayerSpeed = speed * 10f;
+       return currentSpeed = speed; ;
     }
 
 }

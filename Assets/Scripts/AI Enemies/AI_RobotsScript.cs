@@ -128,7 +128,7 @@ namespace object_pool
 
         void ColorfullExplosion()
         {
-            explosion = DestructiblePoolManager.Instance.GetExplosionPieces();
+            explosion = StrikePlayerExplosionPool.Instance.GetExplosionPieces();
             explosion.transform.position = transform.position;
 
         }

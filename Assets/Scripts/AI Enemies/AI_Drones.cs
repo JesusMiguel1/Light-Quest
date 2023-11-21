@@ -54,6 +54,13 @@ namespace object_pool
 
         void Update()
         {
+
+            if (audioSource != null && policeAudioClips != null)
+            {
+                audioSource.volume = 0.05f;
+                audioSource.PlayOneShot(policeAudioClips);
+            }
+
             if (!ifMovingToPlayer)
             {
                 PatrolMovement();
@@ -161,7 +168,7 @@ namespace object_pool
 
         void ColorfullExplosion()
         {
-            explosion = DestructiblePoolManager.Instance.GetExplosionPieces();
+            explosion = StrikePlayerExplosionPool.Instance.GetExplosionPieces();
             explosion.transform.position = transform.position;
         }
 

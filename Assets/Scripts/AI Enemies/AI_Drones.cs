@@ -18,7 +18,7 @@ namespace object_pool
 
         public EnemyManager enemyManager;
 
-
+        private GlobalSpeedManager speed;
 
 
 
@@ -39,27 +39,30 @@ namespace object_pool
 
         private AudioManager audioManager;
 
+        void OnEnable()
+        {
+            audioSource = GetComponent<AudioSource>();
 
+            audioManager = GetComponent<AudioManager>();
+            if (audioSource != null && policeAudioClips != null)
+            {
+                audioSource.volume = 1f;
+                audioSource.PlayOneShot(policeAudioClips);
+            }
+            speed = new GlobalSpeedManager();
+        }
         void Start()
         {
             ifMovingToPlayer = false;
             //player = Resources.Load()
             //rb = this.GetComponent<Rigidbody>();
-            audioSource = GetComponent<AudioSource>();
-            
-            audioManager = GetComponent<AudioManager>();
-
             SetNewTarget();
         }
 
         void Update()
         {
 
-            if (audioSource != null && policeAudioClips != null)
-            {
-                audioSource.volume = 0.05f;
-                audioSource.PlayOneShot(policeAudioClips);
-            }
+            
 
             if (!ifMovingToPlayer)
             {
@@ -76,7 +79,7 @@ namespace object_pool
 
         void PatrolMovement()
         {
-            moveSpeed = 10f;
+            moveSpeed = speed.CurrentSpeed;
             ifMovingToPlayer = false;
             pointA.position = new Vector3(0,0, 80f);
             pointB.position = new Vector3(70, 3, -70f);
@@ -124,10 +127,10 @@ namespace object_pool
         //}
         IEnumerator StartMoveToPlayer()
         {
-            float timing = 4f;
+            float timing = 1f;
             yield return new WaitForSeconds(timing);
             ifMovingToPlayer = true;
-            moveSpeed = 20;
+            moveSpeed = speed.CurrentSpeed;
         }
         void MoveToPlayer()
         {
@@ -136,7 +139,7 @@ namespace object_pool
             
            //if(ifMovingToPlayer)
            // {
-                moveSpeed = 20f;
+                moveSpeed = speed.CurrentSpeed;
                 Vector3 direction = player.position - transform.position;
                 float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 Quaternion rotation = Quaternion.Euler(0, angle, 0);

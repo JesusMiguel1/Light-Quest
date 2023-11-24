@@ -9,12 +9,14 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemyPrefab2;
     public GameObject[] enemyPrefabs;
     public int currentWave = 1;
-    public int enemiesPerWave = 3;
+    private int enemiesPerWave = 1;
     private int enemiesRemaining;
 
+    EnemySpawner enemies;
     void Start()
     {
         StartWave();
+        enemies = new EnemySpawner();
         enemyPrefabs = new GameObject[] {enemyPrefab, enemyPrefab2};
     }
 
@@ -23,7 +25,9 @@ public class EnemyManager : MonoBehaviour
         if (enemiesRemaining == 0)
         {
             StartNextWave();
+            
         }
+        Debug.Log($"<b> CHECKING ENEMIES CURRENT WAVE....{enemiesRemaining}</b>");
     }
 
     void StartWave()
@@ -32,7 +36,8 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < enemiesRemaining; i++)
         {
-            SpawnEnemy();
+            //SpawnEnemy();
+            enemies.SpawnEnemy(enemiesPerWave, 2f);
         }
     }
 
@@ -45,16 +50,16 @@ public class EnemyManager : MonoBehaviour
     void SpawnEnemy()
     {
         int index = Random.Range(0, enemyPrefabs.Length);
-        GameObject enemy = Instantiate(enemyPrefabs[index], GetRandomSpawnPosition(), Quaternion.identity);
-        enemy.GetComponent<AI_Drones>().player = player;
-        enemy.GetComponent<AI_Drones>().enemyManager = this;
+        //GameObject enemy = Instantiate(enemyPrefabs[index], GetRandomSpawnPosition(), Quaternion.identity);
+        //enemy.GetComponent<AI_Drones>().player = player;
+        //enemy.GetComponent<AI_Drones>().enemyManager = this;
     }
 
     Vector3 GetRandomSpawnPosition()
     {
         // Implement your logic to get random spawn positions here
-        float x = Random.Range(-30f, 30f);
-        float z = Random.Range(-30f, 30f);
+        float x = Random.Range(30f, 60f);
+        float z = Random.Range(30f, 60f);
         return new Vector3(x, 0.5f, z);
     }
     public void EnemyDestroyed()

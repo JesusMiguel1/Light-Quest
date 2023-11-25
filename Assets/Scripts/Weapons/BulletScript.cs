@@ -5,11 +5,11 @@ namespace object_pool
 {
     public class BulletScript : MonoBehaviour
     {
-        float bulletSpeed = 50f;
+        float bulletSpeed = 150f;
         float bulletDuration = 1f;
         float bulletLifeTime;
 
-        GameObject explosion;
+       // GameObject explosion;
         
 
         private HashSet<string> allowedNames;
@@ -17,12 +17,9 @@ namespace object_pool
 
         void OnEnable()
         {
-            strings = new GlobalStrings();
-            allowedNames = new HashSet<string> { strings.slapperClone, "R1_Enemy(Clone)", "Powerup",strings.EnemyTrigger };
+            //strings = new GlobalStrings();
+            //allowedNames = new HashSet<string> { strings.slapperClone, "R1_Enemy(Clone)", "Powerup",strings.EnemyTrigger };
             bulletLifeTime = bulletDuration;
-
-
-            //explosion = GetComponent<ParticlesExplosion>();
 
         }
 
@@ -45,16 +42,16 @@ namespace object_pool
             }
         }
 
-        void OnCollisionEnter(Collision other)
+        //void OnCollisionEnter(Collision other)
 
-        {
-            if (allowedNames.Contains(other.gameObject.name))
-            {
-                //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
-                other.gameObject.SetActive(false);
-                ColorfullExplosion();
+        //{
+        //    if (allowedNames.Contains(other.gameObject.name))
+        //    {
+        //        //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
+        //        other.gameObject.SetActive(false);
+        //        ColorfullExplosion();
 
-            }
+        //    }
 
 
 
@@ -68,12 +65,12 @@ namespace object_pool
             //}
 
 
-            void ColorfullExplosion()
-            {
-                explosion = DestructiblePoolManager.Instance.GetPieces();
-                explosion.transform.position = transform.position;
+            //void ColorfullExplosion()
+            //{
+            //    explosion = DestructiblePoolManager.Instance.GetPieces();
+            //    explosion.transform.position = transform.position;
 
-            }
-        }
+            //}
+        //}
     }
 }

@@ -138,13 +138,13 @@ namespace object_pool
         void OnCollisionEnter(Collision other){
             if (other.gameObject.name == "Player(Clone)")
             {
-                //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
+                Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
                 ifMovingToPlayer = false;
                 gameObject.SetActive(false);
                 ColorfullExplosion();
 
             }
-            if (other.gameObject.name == "Bullet(Clone)")
+            if (other.gameObject.name == "BulletTrace(Clone)")
             {
                 AudioManager.Instance.PlayOneShot(audioClips);
                 // int clipsIndex = Random.Range(0, audioClips.Length);

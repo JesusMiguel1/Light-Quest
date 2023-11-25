@@ -19,6 +19,9 @@ namespace object_pool
         public TrailRenderer bulletTrace;
         public AudioClip audioClip;
         private AudioSource audioSource;
+        public AudioClip hitAudioClip;
+        //public AudioClip policeAudioClips;
+        private AudioManager audioManager;
 
         private HashSet<string> allowedNames;
         GlobalStrings strings;
@@ -29,6 +32,8 @@ namespace object_pool
         void OnEnable()
         {
             audioSource = GetComponent<AudioSource>();
+            audioManager = GetComponent<AudioManager>();
+            
         }
         void Start()
         {
@@ -95,6 +100,8 @@ namespace object_pool
                 }
             }
 
+           
+
         }
         private void RightHandShood()
         {
@@ -103,9 +110,9 @@ namespace object_pool
 
             if (Physics.Raycast(rightHandSpawner.position, rightHandSpawner.forward, out hit))
             {
-                //GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-                //bullet.transform.position = rightHandSpawner.position;
-                //bullet.transform.rotation = rightHandSpawner.rotation;
+                GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+                bullet.transform.position = rightHandSpawner.position;
+                bullet.transform.rotation = rightHandSpawner.rotation;
                 Debug.DrawRay(rightHandSpawner.position, rightHandSpawner.forward * hit.distance, Color.green) ;
                 //Debug.Log($"<b> WHAT DID I HIT </b> ....{hit.collider.name}");
                 trace.transform.position = hit.point;
@@ -116,15 +123,27 @@ namespace object_pool
                 //    hit.collider.gameObject.SetActive(false);
                 //}
 
-
+               
                 if (allowedNames.Contains(hit.collider.name))
                 {
+                    if (hit.collider.gameObject.name == strings.slapperClone)
+                    {
+                        AudioManager.Instance.PlayOneShot(hitAudioClip);
+
+                        //audioManager = GetComponent<AudioManager>();
+                        if (audioManager != null)
+                        {
+                            audioManager.PlayOneShot(hitAudioClip);
+                        }
+                    }
+                    // int clipsIndex = Random.Range(0, audioClips.Length);
+
                     //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
                     hit.collider.gameObject.SetActive(false);
                     ColorfullExplosion();
 
                 }
-
+               
 
                 //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
                 //grenade.transform.position = rightHandSpawner.position;

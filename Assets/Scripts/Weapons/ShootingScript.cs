@@ -11,22 +11,32 @@ namespace object_pool
         [SerializeField] private Transform rightHandSpawner;
         [SerializeField] private Transform leftHandSpawner;
 
+       
         private LayerMask enemyMask;
         private RaycastHit hit;
-        private LineRenderer laser;
         private float distance = 100f;
         private float range = 15f;
-
+        public TrailRenderer bulletTrace;
         public AudioClip audioClip;
         private AudioSource audioSource;
 
+        private HashSet<string> allowedNames;
+        GlobalStrings strings;
         //public Grenade grenadeScript; 
 
+        GameObject explosion;
+
+        void OnEnable()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
         void Start()
         {
             enemyMask = 1 << 9;
-            laser = GetComponent<LineRenderer>();
-            audioSource = GetComponent<AudioSource>();
+            
+
+            strings = new GlobalStrings();
+            allowedNames = new HashSet<string> { strings.slapperClone, "R1_Enemy(Clone)", "Powerup", strings.EnemyTrigger };
         }
 
         void Update()
@@ -88,11 +98,33 @@ namespace object_pool
         }
         private void RightHandShood()
         {
+            var trace = Instantiate(bulletTrace, rightHandSpawner.position, Quaternion.identity);
+            trace.AddPosition(rightHandSpawner.position);   
+
             if (Physics.Raycast(rightHandSpawner.position, rightHandSpawner.forward, out hit))
             {
-                GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-                bullet.transform.position = rightHandSpawner.position;
-                bullet.transform.rotation = rightHandSpawner.rotation;
+                //GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+                //bullet.transform.position = rightHandSpawner.position;
+                //bullet.transform.rotation = rightHandSpawner.rotation;
+                Debug.DrawRay(rightHandSpawner.position, rightHandSpawner.forward * hit.distance, Color.green) ;
+                //Debug.Log($"<b> WHAT DID I HIT </b> ....{hit.collider.name}");
+                trace.transform.position = hit.point;
+
+                //if(hit.collider.name == "EnemyTrigger")
+                //{
+                //    Debug.Log($"<b> DO SOMETHINGT </b> ....{hit.collider.name}");
+                //    hit.collider.gameObject.SetActive(false);
+                //}
+
+
+                if (allowedNames.Contains(hit.collider.name))
+                {
+                    //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
+                    hit.collider.gameObject.SetActive(false);
+                    ColorfullExplosion();
+
+                }
+
 
                 //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
                 //grenade.transform.position = rightHandSpawner.position;
@@ -106,12 +138,29 @@ namespace object_pool
 
         private void LeftHandShood()
         {
+            var trace = Instantiate(bulletTrace, leftHandSpawner.position, Quaternion.identity);
+            trace.AddPosition(leftHandSpawner.position);
             if (Physics.Raycast(leftHandSpawner.position, leftHandSpawner.forward, out hit))
             {
-                GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-                bullet.transform.position = leftHandSpawner.position;
-                bullet.transform.rotation = leftHandSpawner.rotation;
+                //GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+                //bullet.transform.position = leftHandSpawner.position;
+                //bullet.transform.rotation = leftHandSpawner.rotation;
+                trace.transform.position = hit.point;
+                if (allowedNames.Contains(hit.collider.name))
+                {
+                    //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
+                    hit.collider.gameObject.SetActive(false);
+                    ColorfullExplosion();
+
+                }
             }
+        }
+
+        void ColorfullExplosion()
+        {
+            explosion = DestructiblePoolManager.Instance.GetPieces();
+            explosion.transform.position = hit.point;
+
         }
     }
 }

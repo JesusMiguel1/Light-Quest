@@ -10,13 +10,6 @@ namespace punk_vs_robots
 {
     public class Player : MonoBehaviour
     {
-        // private Transform enemies;
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
         void Update()
         {
             //Getting avatar reference
@@ -25,45 +18,9 @@ namespace punk_vs_robots
             {
                 return;
             }
-            // GetInputs();
 
             Debug.Log("Checking avatar... " + avatar);
         }
-
-        ////Initialize inputs
-        //void GetInputs()
-        //{
-        //    var rightInput = GetInput(VRInputDeviceHand.Right);
-        //    var leftInput = GetInput(VRInputDeviceHand.Left);
-
-        //    // Input Examples
-        //    if (rightInput != null)
-        //    {
-        //        if (rightInput.GetButtonDown(VRButton.Back))
-        //            Debug.Log("Back button pressed");
-
-
-
-        //    }
-
-        //    if (leftInput != null)
-        //    {
-        //        if (leftInput.GetButtonDown(VRButton.Back))
-        //            Debug.Log("Back button pressed");
-
-        //        if (leftInput.GetButtonDown(VRButton.One))
-        //            Debug.Log("Trigger button pressed");
-        //    }
-
-        //}
-
-        //private IVRInputDevice GetInput(VRInputDeviceHand hand)
-        //{
-        //    var device = VRDevice.Device;
-        //    Debug.Log("Checking hands..." + hand);
-        //    return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
-
-        //}
     }
 
 }

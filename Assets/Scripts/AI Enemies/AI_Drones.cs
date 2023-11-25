@@ -11,21 +11,24 @@ namespace object_pool
     public class AI_Drones : MonoBehaviour
     {
         //Test
+        [Header("way points for enemy to patrol")]
+        [Tooltip("Drop the waypoints game objects into the editor fields")]
         public Transform pointA;
         public Transform pointB;
         public Transform pointC;
         private Transform target;
 
+        [Header("Siren flash light")]
+        [Tooltip("Drop the light point game object located into slapper game object upper_r file")]
+        public GameObject siren;
+
+        [Header("Enemy trigger")]
+        [Tooltip("Enemis will be spawned when this object is deactivated" + "Enemy manager game object must be dropped here")]
         public EnemyManager enemyManager;
 
         private GlobalSpeedManager speed;
 
-
-
-
         public float moveSpeed;
-        private float rotationSpeed = 20;
-        private float detectPlayerRadius = 0.1f;
         public bool ifMovingToPlayer;
         public Transform player; // Reference to the player's transform
         Rigidbody rb;
@@ -41,6 +44,7 @@ namespace object_pool
 
         void OnEnable()
         {
+            StartCoroutine(FlashingLightSiren());
             audioSource = GetComponent<AudioSource>();
 
             audioManager = GetComponent<AudioManager>();
@@ -112,19 +116,6 @@ namespace object_pool
                 target = pointC;
         }
 
-
-
-        //void PatrolMovement()
-        //{
-        //    float xMove = Random.Range(0, 20);
-        //    float yMove = Random.Range(0, 5);
-        //    float zMove = Random.Range(0, 20);
-
-        //    Vector3 position = new Vector3(Random.Range(10, 50), Random.Range(0, 5), Random.Range(10, 50));
-
-        //    Vector3 patrolMovement = new Vector3(position.x + xMove, position.y + yMove, position.z + zMove );
-        //    transform.position = Vector3.MoveTowards(transform.position, patrolMovement, moveSpeed * Time.deltaTime);
-        //}
         IEnumerator StartMoveToPlayer()
         {
             float timing = 1f;
@@ -132,21 +123,16 @@ namespace object_pool
             ifMovingToPlayer = true;
             moveSpeed = speed.CurrentSpeed;
         }
+
         void MoveToPlayer()
         {
-            //float timing = 4f;
-            //yield return new WaitForSeconds(timing);
-            
-           //if(ifMovingToPlayer)
-           // {
-                moveSpeed = speed.CurrentSpeed;
-                Vector3 direction = player.position - transform.position;
-                float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-                Quaternion rotation = Quaternion.Euler(0, angle, 0);
-                transform.rotation = rotation;
-                transform.position = Vector3.MoveTowards(transform.position, direction, moveSpeed * Time.deltaTime);
-           // }
-
+            moveSpeed = speed.CurrentSpeed;
+            Vector3 direction = player.position - transform.position;
+            float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(0, angle, 0);
+            transform.rotation = rotation;
+            transform.position = Vector3.MoveTowards(transform.position, direction, moveSpeed * Time.deltaTime);
+           
         }
 
         void OnCollisionEnter(Collision other){
@@ -175,5 +161,15 @@ namespace object_pool
             explosion.transform.position = transform.position;
         }
 
+        IEnumerator FlashingLightSiren()
+        {
+            float flashingTime = 0.2f;
+            yield return new WaitForSeconds(flashingTime);
+            siren.SetActive(true);
+
+            yield return new WaitForSeconds(flashingTime);
+            siren.SetActive(false);
+            StartCoroutine(FlashingLightSiren());
+        }
     }
 }

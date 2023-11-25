@@ -37,7 +37,10 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < enemiesRemaining; i++)
         {
             //SpawnEnemy();
-            enemies.SpawnEnemy(enemiesPerWave, 2f);
+           if(enemies != null)
+            {
+                enemies.SpawnEnemy(enemiesPerWave, 2f);
+            }
         }
     }
 

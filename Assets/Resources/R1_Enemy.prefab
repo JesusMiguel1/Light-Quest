@@ -224,7 +224,7 @@ MonoBehaviour:
   ifMovingToPlayer: 0
   player: {fileID: 7033361905032328129, guid: a0f0b9ef13f25544b9d66ee932d083a2, type: 3}
   audioClips: {fileID: 8300000, guid: 48c3162e8c01c5f4dad133459ade6e4b, type: 3}
-  policeAudioClips: {fileID: 8300000, guid: e50d89cb7d4387848bd6160a356116a9, type: 3}
+  policeAudioClips: {fileID: 8300000, guid: 5b1192afc49e90840a5179781387a98d, type: 3}
 --- !u!82 &940453801645279889
 AudioSource:
   m_ObjectHideFlags: 0
@@ -245,10 +245,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.7
-  MaxDistance: 84.51
+  MinDistance: 1
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -297,15 +297,6 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 4.474165
-      outSlope: 4.474165
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.6545455
-    - serializedVersion: 3
-      time: 0.31073445
-      value: 0.45832825
       inSlope: 1.2746071
       outSlope: 1.2746071
       tangentMode: 0
@@ -320,7 +311,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.53
+      value: 0.243
       inSlope: 0
       outSlope: 0
       tangentMode: 0

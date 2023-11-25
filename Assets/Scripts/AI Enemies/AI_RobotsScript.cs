@@ -25,16 +25,24 @@ namespace object_pool
 
         private AudioManager audioManager;
 
+        void OnEnable()
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource != null && policeAudioClips != null)
+            {
+                audioSource.volume = 1f;
+                audioSource.PlayOneShot(policeAudioClips);
+            }
 
+        }
         void Start()
         {
 
             rb = this.GetComponent<Rigidbody>();
-            audioSource = GetComponent<AudioSource>();
-
+            
             if (player == null)
             {
-                player = GameObject.FindGameObjectWithTag("Player").transform;
+                player = GameObject.FindWithTag("Player").transform;
             }
             audioManager = GetComponent<AudioManager>();
 
@@ -44,11 +52,7 @@ namespace object_pool
         void Update()
         {
 
-            if (audioSource != null && policeAudioClips != null)
-            {
-                audioSource.volume = 0.05f;
-                audioSource.PlayOneShot(policeAudioClips);
-            }
+           
             if (!ifMovingToPlayer)
             {
                 float randomX = Random.Range(0f, 20f);

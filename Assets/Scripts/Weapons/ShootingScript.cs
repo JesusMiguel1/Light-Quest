@@ -122,20 +122,20 @@ namespace object_pool
                 //    Debug.Log($"<b> DO SOMETHINGT </b> ....{hit.collider.name}");
                 //    hit.collider.gameObject.SetActive(false);
                 //}
+                if (hit.collider.gameObject.name == strings.slapperClone)
+                {
+                    AudioManager.Instance.PlayOneShot(hitAudioClip);
 
-               
+                    //audioManager = GetComponent<AudioManager>();
+                    if (audioManager != null)
+                    {
+                        audioManager.PlayOneShot(hitAudioClip);
+                    }
+                }
+
                 if (allowedNames.Contains(hit.collider.name))
                 {
-                    if (hit.collider.gameObject.name == strings.slapperClone)
-                    {
-                        AudioManager.Instance.PlayOneShot(hitAudioClip);
-
-                        //audioManager = GetComponent<AudioManager>();
-                        if (audioManager != null)
-                        {
-                            audioManager.PlayOneShot(hitAudioClip);
-                        }
-                    }
+                   
                     // int clipsIndex = Random.Range(0, audioClips.Length);
 
                     //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");

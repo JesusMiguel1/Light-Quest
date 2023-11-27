@@ -39,7 +39,7 @@ public class EnemyManager : MonoBehaviour
             //SpawnEnemy();
            if(enemies != null)
             {
-                enemies.SpawnEnemy(enemiesPerWave, 2f);
+                enemies.SpawnEnemy(enemiesPerWave, 2f, null);
             }
         }
     }

@@ -26,6 +26,10 @@ public class EnemyWaveSpawner : MonoBehaviour
     }
     void Update()
     {
+        if(waveState == SpawnWaveState.WAIT)
+        {
+            //CHECK IF THERE STILL ENEMIES IN THE LEVEL
+        }
         if(waveCountDown <= 0)
         {
             if(waveState != SpawnWaveState.SPAWNING)
@@ -39,7 +43,13 @@ public class EnemyWaveSpawner : MonoBehaviour
             waveCountDown -= Time.deltaTime;
         }
     }
-
+    bool IfEnemyAlive()
+    {
+        if (GameObject.Find("slapper") == null){
+            return false;
+        }
+        return true;    
+    }
     IEnumerator SpawnWaves(Wave _wave)
     {
         waveState = SpawnWaveState.SPAWNING;

@@ -14,6 +14,11 @@ namespace object_pool
         private EnemySpawner spawner;
         public GameObject enemyTrigger;
         private GlobalSpeedManager speedManager;
+        public GameObject pipe; 
+        public GameObject pipe1; 
+        public GameObject pipe2;
+        
+
 
         void OnEnable()
         {
@@ -26,12 +31,13 @@ namespace object_pool
         {
             float timeToSpawn =2f;
             float waveTimeToSpan = 1f;
-           
+            GameObject[] pipes = new GameObject[] { pipe, pipe1, pipe2 };
             for (int wave = 0; wave < numberOfWaves; wave++)
             {
-                if(spawner != null)
+                GameObject randomPipe = pipes[Random.Range(0, pipes.Length)];
+                if (spawner != null)
                 {
-                    yield return StartCoroutine(spawner.SpawnEnemy(enemiesAmount, timeToSpawn));
+                    yield return StartCoroutine(spawner.SpawnEnemy(enemiesAmount, timeToSpawn, randomPipe));
                     speedManager.CurrentSpeed = speed;
                     if (wave > 1)
                     {

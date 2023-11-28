@@ -37,9 +37,13 @@ public class EnemyWaveSpawner : MonoBehaviour
     }
     void Update()
     {
-        if(!trigger.activeInHierarchy && !stopSpawning)
+
+        if (!trigger.activeInHierarchy && !stopSpawning)
         {
             backMusic.SetActive(true);
+
+            FindObjectOfType<MainAudioManager>().PlaySound("Theme");
+           
             CheckForEnemies();
         }
     }

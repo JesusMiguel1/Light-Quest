@@ -83,21 +83,25 @@ namespace object_pool
             {
                 //Debug.Log("Lets start shooting");
                 RightHandShood();
-                if (audioSource != null && audioClip != null)
-                {
-                    audioSource.volume = 0.05f;
-                    audioSource.PlayOneShot(audioClip);
-                }
+                audioSource.Play(); 
+                //if (audioSource != null && audioClip != null)
+                //{
+                //    audioSource.volume = 0.05f;
+                //    audioSource.PlayOneShot(audioClip);
+                //}
+                //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
             }
             if (leftHandInput.GetButtonDown(VRButton.Trigger))
             {
                 //Debug.Log("Lets start shooting");
                 LeftHandShood();
-                if (audioSource != null && audioClip != null)
-                {
-                    audioSource.volume = 0.05f;
-                    audioSource.PlayOneShot(audioClip);
-                }
+                audioSource.Play();
+                //if (audioSource != null && audioClip != null)
+                //{
+                //    audioSource.volume = 0.05f;
+                //    audioSource.PlayOneShot(audioClip);
+                //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
+                //}
             }
 
 
@@ -126,11 +130,12 @@ namespace object_pool
                 {
                     AudioManager.Instance.PlayOneShot(hitAudioClip);
 
-                    //audioManager = GetComponent<AudioManager>();
+                    audioManager = GetComponent<AudioManager>();
                     if (audioManager != null)
                     {
                         audioManager.PlayOneShot(hitAudioClip);
                     }
+                    //FindObjectOfType<MainAudioManager>().PlaySound("Shoot");
                 }
 
                 if (allowedNames.Contains(hit.collider.name))

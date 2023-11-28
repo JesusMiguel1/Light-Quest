@@ -50,13 +50,14 @@ namespace object_pool
             audioManager = GetComponent<AudioManager>();
             if (audioSource != null && policeAudioClips != null)
             {
-                audioSource.volume = 0.5f;
+                audioSource.volume = 1f;
                 audioSource.PlayOneShot(policeAudioClips);
             }
             speed = new GlobalSpeedManager();
         }
         void Start()
         {
+            
             ifMovingToPlayer = false;
             //player = Resources.Load()
             //rb = this.GetComponent<Rigidbody>();
@@ -75,19 +76,19 @@ namespace object_pool
             if (ifMovingToPlayer)
             {
                 MoveToPlayer();
-                speed.CurrentSpeed = 20f;
+                speed.CurrentSpeed = 30f;
             }
         }
 
         void PatrolMovement()
         {
-            moveSpeed = speed.CurrentSpeed;
+            //moveSpeed = speed.CurrentSpeed;
             ifMovingToPlayer = false;
             pointA.position = new Vector3(0,0, 50f);
             pointB.position = new Vector3(40, 3, -40f);
             pointC.position = new Vector3(-40, 0, 0f);
 
-            transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, speed.CurrentSpeed * Time.deltaTime);
 
             Vector3 direction = target.position - transform.position;
             float angle = Mathf.Atan2 (direction.x, direction.z) * Mathf.Rad2Deg;

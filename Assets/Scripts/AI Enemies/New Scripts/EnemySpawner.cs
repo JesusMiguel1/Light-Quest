@@ -14,8 +14,8 @@ namespace object_pool
         {
             for (int i = 0; i < numEnemies; i++)
             {
-                GameObject enemy = DronesPoolManager.Instance.GetDrones();
-                enemy.transform.position = pipe.transform.position;//new Vector3(UnityEngine.Random.Range(-90, 90), 1f, UnityEngine.Random.Range(-90, 90));
+                //GameObject enemy = DronesPoolManager.Instance.GetDrones();
+                //enemy.transform.position = pipe.transform.position;//new Vector3(UnityEngine.Random.Range(-90, 90), 1f, UnityEngine.Random.Range(-90, 90));
                // enemy.transform.rotation = transform.rotation;
                 
                 // speedManager.OnSpeedChanged(speed+=5);

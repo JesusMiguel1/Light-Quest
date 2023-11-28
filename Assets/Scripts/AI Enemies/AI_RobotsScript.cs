@@ -30,7 +30,7 @@ namespace object_pool
             audioSource = GetComponent<AudioSource>();
             if (audioSource != null && policeAudioClips != null)
             {
-                audioSource.volume = 1f;
+                audioSource.volume = 0.5f;
                 audioSource.PlayOneShot(policeAudioClips);
             }
 

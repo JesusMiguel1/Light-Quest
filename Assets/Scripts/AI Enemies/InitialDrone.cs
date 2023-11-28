@@ -25,7 +25,6 @@ namespace punk_vs_robots
         public Color glowColor = Color.yellow;      // Color to glow
         public float glowIntensity = 2.5f;        // Intensity of the glow
 
-
         // Start is called before the first frame update
         void Start()
         {

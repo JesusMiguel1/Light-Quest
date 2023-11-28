@@ -5,7 +5,7 @@ namespace object_pool
 {
     public class BulletScript : MonoBehaviour
     {
-        float bulletSpeed = 180f;
+        float bulletSpeed = 300f;
         float bulletDuration = 1f;
         float bulletLifeTime;
 

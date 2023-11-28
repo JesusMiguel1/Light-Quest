@@ -79,7 +79,7 @@ namespace object_pool
             var rightHandInput = GetInput(VRInputDeviceHand.Right);
             var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-            if (rightHandInput.GetButtonDown(VRButton.One))
+            if (rightHandInput.GetButtonDown(VRButton.Trigger))
             {
                 //Debug.Log("Lets start shooting");
                 RightHandShood();
@@ -100,7 +100,7 @@ namespace object_pool
                 }
             }
 
-           
+
 
         }
         private void RightHandShood()
@@ -161,10 +161,20 @@ namespace object_pool
             trace.AddPosition(leftHandSpawner.position);
             if (Physics.Raycast(leftHandSpawner.position, leftHandSpawner.forward, out hit))
             {
-                //GameObject bullet = BulletsPoolManager.Instance.GetBullet();
-                //bullet.transform.position = leftHandSpawner.position;
-                //bullet.transform.rotation = leftHandSpawner.rotation;
+                GameObject bullet = BulletsPoolManager.Instance.GetBullet();
+                bullet.transform.position = leftHandSpawner.position;
+                bullet.transform.rotation = leftHandSpawner.rotation;
                 trace.transform.position = hit.point;
+                if (hit.collider.gameObject.name == strings.slapperClone)
+                {
+                    AudioManager.Instance.PlayOneShot(hitAudioClip);
+
+                    //audioManager = GetComponent<AudioManager>();
+                    if (audioManager != null)
+                    {
+                        audioManager.PlayOneShot(hitAudioClip);
+                    }
+                }
                 if (allowedNames.Contains(hit.collider.name))
                 {
                     //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");

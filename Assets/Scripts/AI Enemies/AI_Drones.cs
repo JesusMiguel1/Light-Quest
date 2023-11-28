@@ -50,7 +50,7 @@ namespace object_pool
             audioManager = GetComponent<AudioManager>();
             if (audioSource != null && policeAudioClips != null)
             {
-                audioSource.volume = 1f;
+                audioSource.volume = 0.5f;
                 audioSource.PlayOneShot(policeAudioClips);
             }
             speed = new GlobalSpeedManager();
@@ -65,9 +65,6 @@ namespace object_pool
 
         void Update()
         {
-
-            
-
             if (!ifMovingToPlayer)
             {
                 PatrolMovement();
@@ -78,6 +75,7 @@ namespace object_pool
             if (ifMovingToPlayer)
             {
                 MoveToPlayer();
+                speed.CurrentSpeed = 20f;
             }
         }
 
@@ -85,9 +83,9 @@ namespace object_pool
         {
             moveSpeed = speed.CurrentSpeed;
             ifMovingToPlayer = false;
-            pointA.position = new Vector3(0,0, 80f);
-            pointB.position = new Vector3(70, 3, -70f);
-            pointC.position = new Vector3(-70, 0, 0f);
+            pointA.position = new Vector3(0,0, 50f);
+            pointB.position = new Vector3(40, 3, -40f);
+            pointC.position = new Vector3(-40, 0, 0f);
 
             transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
 

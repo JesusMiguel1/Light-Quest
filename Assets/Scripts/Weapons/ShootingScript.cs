@@ -25,6 +25,7 @@ namespace object_pool
 
         private HashSet<string> allowedNames;
         GlobalStrings strings;
+        GlobalBool gbool;
         //public Grenade grenadeScript; 
 
         GameObject explosion;
@@ -41,7 +42,15 @@ namespace object_pool
             
 
             strings = new GlobalStrings();
-            allowedNames = new HashSet<string> { strings.slapperClone, "R1_Enemy(Clone)", "Powerup", strings.EnemyTrigger };
+            gbool = new GlobalBool();
+
+            allowedNames = new HashSet<string> { 
+                strings.slapperClone, 
+                "R1_Enemy(Clone)", 
+                "Powerup", 
+                strings.EnemyTrigger,
+                strings.policeInspectorClone
+            };
         }
 
         void Update()
@@ -79,7 +88,7 @@ namespace object_pool
             var rightHandInput = GetInput(VRInputDeviceHand.Right);
             var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-            if (rightHandInput.GetButtonDown(VRButton.Trigger))
+            if (rightHandInput.GetButtonDown(VRButton.One))
             {
                 //Debug.Log("Lets start shooting");
                 RightHandShood();
@@ -91,18 +100,18 @@ namespace object_pool
                 //}
                 //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
             }
-            if (leftHandInput.GetButtonDown(VRButton.Trigger))
-            {
-                //Debug.Log("Lets start shooting");
-                LeftHandShood();
-                audioSource.Play();
-                //if (audioSource != null && audioClip != null)
-                //{
-                //    audioSource.volume = 0.05f;
-                //    audioSource.PlayOneShot(audioClip);
-                //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
-                //}
-            }
+            //if (leftHandInput.GetButtonDown(VRButton.Trigger))
+            //{
+            //    //Debug.Log("Lets start shooting");
+            //    LeftHandShood();
+            //    audioSource.Play();
+            //    //if (audioSource != null && audioClip != null)
+            //    //{
+            //    //    audioSource.volume = 0.05f;
+            //    //    audioSource.PlayOneShot(audioClip);
+            //    //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
+            //    //}
+            //}
 
 
 
@@ -145,6 +154,7 @@ namespace object_pool
 
                     //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
                     hit.collider.gameObject.SetActive(false);
+                    gbool.inspectorDisabled = true;
                     ColorfullExplosion();
 
                 }

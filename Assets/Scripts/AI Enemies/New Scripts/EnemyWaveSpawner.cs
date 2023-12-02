@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyWaveSpawner;
 
 public class EnemyWaveSpawner : MonoBehaviour
 {
@@ -22,28 +21,50 @@ public class EnemyWaveSpawner : MonoBehaviour
     public float waveCountDown;
     private float checkForEnemiesTimer = 1f;
     private bool stopSpawning = false;
+    private bool hasSpawned;
 
     [HideInInspector]public GameObject pipe;
     public GameObject trigger;
     public GameObject backMusic;
+    private GameObject policeInspector;
+    GameObject polInspector;
+
+    private GlobalStrings strings;
 
 
     private SpawnWaveState waveState = SpawnWaveState.COUNTER;
-
+   
     void Start()
     {
+        strings = new GlobalStrings();  
+        policeInspector = Resources.Load(strings.policeInspector, typeof(GameObject)) as GameObject;    
         waveCountDown = timeToNextWave;
         backMusic.SetActive(false);
     }
     void Update()
     {
+        
+        if (!trigger.activeInHierarchy && !hasSpawned)
+        {
+            SpawnInspector();
+            hasSpawned = true;
+            polInspector = GameObject.Find(strings.policeInspectorClone);
 
-        if (!trigger.activeInHierarchy && !stopSpawning)
+        }
+        SpawningPolice();
+       
+
+
+    }
+    void SpawningPolice()
+    {
+        
+        if (!trigger.activeInHierarchy && !stopSpawning && !polInspector.activeInHierarchy )
         {
             backMusic.SetActive(true);
 
             FindObjectOfType<MainAudioManager>().PlaySound("Theme");
-           
+
             CheckForEnemies();
         }
     }
@@ -124,7 +145,13 @@ public class EnemyWaveSpawner : MonoBehaviour
         waveState = SpawnWaveState.WAIT;
         yield break;
     }
-
+    void SpawnInspector()
+    {
+        Vector3 position = new Vector3(15f, 0, 10f);
+        GameObject police = Instantiate(policeInspector);
+        police.transform.position = position;
+        police.transform.rotation = Quaternion.identity;
+    }
     void SpawnEnemies(GameObject _enemies)
     {
         Transform enemiesSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; 

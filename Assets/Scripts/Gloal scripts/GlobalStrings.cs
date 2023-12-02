@@ -10,4 +10,7 @@ public class GlobalStrings
     public string bullet = "Bullet";
     public string bulletClone = "Bullet(Clone)";
     public string EnemyTrigger = "EnemyTrigger";
+    public string policeInspector = "policeInspector";
+    public string policeInspectorClone = "policeInspector(Clone)";
+
 }

@@ -22,9 +22,6 @@ namespace object_pool
         [Tooltip("Drop the light point game object located into slapper game object upper_r file")]
         public GameObject siren;
 
-        [Header("Enemy trigger")]
-        [Tooltip("Enemis will be spawned when this object is deactivated" + "Enemy manager game object must be dropped here")]
-        public EnemyManager enemyManager;
 
         private GlobalSpeedManager speed;
 

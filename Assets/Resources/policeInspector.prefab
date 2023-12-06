@@ -661,6 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38287cef7c267a4419b1e40a2e03f1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bottle: {fileID: 4653043314505693000, guid: 4854ccb62e61c1f44a4cb0701206e375, type: 3}
 --- !u!114 &-6504410244229579597
 MonoBehaviour:
   m_ObjectHideFlags: 0

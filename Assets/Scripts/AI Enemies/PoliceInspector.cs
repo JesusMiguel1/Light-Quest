@@ -260,7 +260,7 @@ public class PoliceInspector : MonoBehaviour
             Inspecting = true;
             //Debug.Log($"<color=blue><b> Executing MoveToObject  </b></color>");
 
-            MoveToObject();//NEEDS TO FIX TELETRANSPORTING BUG CAUSED WHEN CALLING THIS METHOD
+            //MoveToObject();//NEEDS TO FIX TELETRANSPORTING BUG CAUSED WHEN CALLING THIS METHOD
 
         }
         // Check if inspection is completed and switch to the next action
@@ -305,20 +305,18 @@ public class PoliceInspector : MonoBehaviour
         isMoving = true;
         float moveSpeed = 4f;
 
-        Vector3 randomPosition = new Vector3(Random.Range(-20f, 30f), 0f, Random.Range(-10f, 40f));
+        Vector3 randomPosition = new Vector3(Random.Range(-20f, 30f), 2f, Random.Range(-10f, 40f));
         StartCoroutine(MoveToPosition(randomPosition, moveSpeed));
         //Debug.Log($"<b>isMoving set to {isMoving}</b>");
 
         // Start inspection when the AI starts moving
         //StartInspection();
 
-        // Your existing logic to move the AI to a random location
         if (!Inspecting)
         {
             inspectionStartTime = Time.time;
         }
 
-        // Assuming IsInspectionCompleted() represents the condition for movement completion
         if (IsInspectionCompleted())
         {
             isMoving = false;
@@ -441,7 +439,6 @@ public class PoliceInspector : MonoBehaviour
         isMoving = true;
         float moveSpeed = 4f;
 
-        // Replace the following line with the actual position of the object you want to move towards
         Vector3 objectPosition = new Vector3(0f, 0f, 0f);
         transform.LookAt(objectPosition);
         StartCoroutine(MoveToPosition(objectPosition, moveSpeed));

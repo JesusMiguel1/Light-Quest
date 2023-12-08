@@ -28,6 +28,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     public GameObject backMusic;
     private GameObject policeInspector;
     GameObject polInspector;
+    GameObject wanderRobots;
 
     private GlobalStrings strings;
 
@@ -52,10 +53,10 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         }
         SpawningPolice();
-       
-
-
     }
+
+
+
     void SpawningPolice()
     {
         
@@ -116,7 +117,6 @@ public class EnemyWaveSpawner : MonoBehaviour
         {
             nextWave++;
         }
-       
     }
 
     bool IfEnemyAlive()
@@ -125,7 +125,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         if(checkForEnemiesTimer <= 0) 
         {
             checkForEnemiesTimer = 1f;
-            if (GameObject.Find("slapper") == null)
+            if (GameObject.Find(strings.slapper) == null)
             {
                 return false;
             }
@@ -147,7 +147,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     }
     void SpawnInspector()
     {
-        Vector3 position = new Vector3(15f, 0, 10f);
+        Vector3 position = new Vector3(15f, 0, 90f);
         GameObject police = Instantiate(policeInspector);
         police.transform.position = position;
         police.transform.rotation = Quaternion.identity;
@@ -158,5 +158,10 @@ public class EnemyWaveSpawner : MonoBehaviour
         _enemies = DronesPoolManager.Instance.GetDrones();
         _enemies.transform.position = enemiesSpawnPoint.position;//new Vector3(UnityEngine.Random.Range(-90, 90), 1f, UnityEngine.Random.Range(-90, 90));
         _enemies.transform.rotation = enemiesSpawnPoint.rotation;
+    }
+
+    void SpawnWanderRobots()
+    {
+
     }
 }

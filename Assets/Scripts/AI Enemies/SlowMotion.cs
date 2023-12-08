@@ -48,12 +48,12 @@ namespace object_pool
             {
                 if (destroyed == true)
                 {
-                    robots.moveSpeed = 1;
+                    //robots.moveSpeed = 1;
 
                 }
                 else if (destroyed == false)
                 {
-                    robots.moveSpeed = 10;
+                    //robots.moveSpeed = 10;
                 }
 
             }
@@ -68,7 +68,7 @@ namespace object_pool
             {
                 if (destroyed == false)
                 {
-                    robots.moveSpeed = 10;
+                    //robots.moveSpeed = 10;
 
                 }
 

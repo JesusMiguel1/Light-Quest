@@ -17,6 +17,8 @@ namespace object_pool
         private List<GameObject> drones;
         private List<GameObject> wanders;
 
+        private GlobalStrings globalStrings;
+
         private int dronesAmount;
         private int wanderDronesAmount;
         // Start is called before the first frame update
@@ -26,12 +28,12 @@ namespace object_pool
             wanderDronesAmount = 20;
 
             instance = this;
-
+            globalStrings = new GlobalStrings();
             drones = new List<GameObject>(dronesAmount);
             wanders = new List<GameObject>(wanderDronesAmount);
 
-            firstDrone = Resources.Load("slapper", typeof(GameObject)) as GameObject;
-            wanderDrone = Resources.Load("R1_Enemy", typeof(GameObject)) as GameObject;
+            firstDrone = Resources.Load(globalStrings.slapper, typeof(GameObject)) as GameObject;
+            wanderDrone = Resources.Load(globalStrings.secondDrone, typeof(GameObject)) as GameObject;
 
             //policeDronePrefab = new GameObject[] { firstDrone, wanderDrone };
             for (int i = 0; i < dronesAmount; i++)
@@ -63,23 +65,6 @@ namespace object_pool
             drones.Add(instantiate);
             return instantiate;
         }
-
-        //public GameObject GetDroneInspector()
-        //{
-        //    foreach (GameObject drone in drones)
-        //    {
-        //        if (!drone.activeInHierarchy)
-        //        {
-        //            drone.SetActive(true);
-        //            return drone;
-        //        }
-        //    }
-        //    //int dronesIndex = Random.Range(0, policeDronePrefab.Length);
-        //    GameObject instantiate = Instantiate(policeInspector);
-        //    instantiate.transform.SetParent(transform);
-        //    drones.Add(instantiate);
-        //    return instantiate;
-        //}
 
         public GameObject GetWanderDroids()
         {

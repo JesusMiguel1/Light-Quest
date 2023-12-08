@@ -40,7 +40,6 @@ namespace object_pool
         {
             enemyMask = 1 << 9;
             
-
             strings = new GlobalStrings();
             gbool = new GlobalBool();
 
@@ -56,7 +55,19 @@ namespace object_pool
         void Update()
         {
             CheckIfEnemy();
+            CheckHand();
             Fire();
+        }
+
+        void CheckHand()
+        {
+            var rightHandInput = GetInput(VRInputDeviceHand.Right);
+            var leftHandInput = GetInput(VRInputDeviceHand.Left);
+
+            if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
+            {
+               
+            }
 
         }
 
@@ -83,13 +94,16 @@ namespace object_pool
             return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
         }
 
+
         private void Fire()
         {
             var rightHandInput = GetInput(VRInputDeviceHand.Right);
             var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-            if (rightHandInput.GetButtonDown(VRButton.One))
+            if (rightHandInput.GetButtonDown(VRButton.Trigger))
             {
+                //WE GONNA THE PULL TRIGGER ANIMATION HERE 
+
                 //Debug.Log("Lets start shooting");
                 RightHandShood();
                 audioSource.Play(); 
@@ -100,22 +114,51 @@ namespace object_pool
                 //}
                 //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
             }
-            //if (leftHandInput.GetButtonDown(VRButton.Trigger))
+
+            //THIS NEEDS TO BE MOVED TO THE HANDS OWN SCRIPT
+            if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
+            {
+                //We gonna the hands grab animations here 
+                Debug.Log($"<b> GRABBING RIGHT HAND GUN </b>");
+            }
+
+
+
+            //WE CAN USE THAT AS POWER UP FOR GUNMACHINE SHOOTING
+            //if (rightHandInput.GetAxis1D(VRAxis.Two) > 0 && powerUp == true)
             //{
-            //    //Debug.Log("Lets start shooting");
-            //    LeftHandShood();
-            //    audioSource.Play();
-            //    //if (audioSource != null && audioClip != null)
-            //    //{
-            //    //    audioSource.volume = 0.05f;
-            //    //    audioSource.PlayOneShot(audioClip);
-            //    //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
-            //    //}
+            //    //We gonna the hands grab animations here 
+            //    RightHandShood();
             //}
 
+            //SAME FOR THE LEFT HAND SHOOTING
 
 
+
+
+            if (leftHandInput.GetButtonDown(VRButton.Trigger))
+            {
+                //WE GONNA THE PULL TRIGGER ANIMATION HERE 
+
+                //Debug.Log("Lets start shooting");
+                LeftHandShood();
+                audioSource.Play();
+                //if (audioSource != null && audioClip != null)
+                //{
+                //    audioSource.volume = 0.05f;
+                //    audioSource.PlayOneShot(audioClip);
+                //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
+                //}
+            }
+            if (leftHandInput.GetAxis1D(VRAxis.Three) > 0)
+            {
+                //We gonna the hands grab animations here 
+                Debug.Log($"<b> GRABBING LEFT HAND GUN </b>");
+            }
         }
+
+
+
         private void RightHandShood()
         {
             var trace = Instantiate(bulletTrace, rightHandSpawner.position, Quaternion.identity);

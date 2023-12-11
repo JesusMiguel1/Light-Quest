@@ -10,6 +10,24 @@ namespace object_pool
 {
     public class AI_Drones : MonoBehaviour
     {
+        public float rotationSpeed = 180.0f;
+        public float spiralRadius = 25.0f; // Adjust the radius as needed
+        public float spiralSpeed;
+        //private float timer;
+        //private float changeDirectionInterval = 1.0f; // Change direction every 3 seconds
+
+        private float droneDuration = 10;
+        private float dronefeTime;
+
+
+        //Patrolling
+        //private float rotationSpeed;
+        private float patrolSpeed;
+        private bool isWandering = false;
+        private bool isRotatingRight = false;
+        private bool isRotatingLeft = false;
+        private bool isWalking = false;
+
         //Test
         [Header("way points for enemy to patrol")]
         [Tooltip("Drop the waypoints game objects into the editor fields")]
@@ -41,6 +59,9 @@ namespace object_pool
 
         void OnEnable()
         {
+            spiralSpeed = Random.Range(1f, 3f);
+            patrolSpeed = 15;
+            rotationSpeed = 10f;
             StartCoroutine(FlashingLightSiren());
             audioSource = GetComponent<AudioSource>();
 
@@ -51,6 +72,7 @@ namespace object_pool
                 audioSource.PlayOneShot(policeAudioClips);
             }
             speed = new GlobalSpeedManager();
+            dronefeTime = droneDuration;
         }
         void Start()
         {
@@ -63,9 +85,11 @@ namespace object_pool
 
         void Update()
         {
+            
             if (!ifMovingToPlayer)
             {
-                PatrolMovement();
+                //PatrolMovement();
+                NPCWander();
             }
             
             StartCoroutine(StartMoveToPlayer());
@@ -75,8 +99,24 @@ namespace object_pool
                 MoveToPlayer();
                 speed.CurrentSpeed = 30f;
             }
+            SelfDestruction();
         }
-
+        void SelfDestruction()
+        {
+            // Destroy drone is too far from player too keep the wave going
+            float distance = Vector3.Distance(player.position, transform.position);
+            
+            if(distance > 200) {
+                Debug.Log($"<b> CHECKING THE DISTANCE BETWEEN PLAYER AND DRONES{distance}</b>");
+                gameObject.SetActive(false);
+            }
+                
+            //dronefeTime -= Time.deltaTime;
+            //if(dronefeTime > 0)
+            //{
+            //    
+            //}
+        }
         void PatrolMovement()
         {
             //moveSpeed = speed.CurrentSpeed;
@@ -114,7 +154,7 @@ namespace object_pool
 
         IEnumerator StartMoveToPlayer()
         {
-            float timing = 1f;
+            float timing = 5f;
             yield return new WaitForSeconds(timing);
             ifMovingToPlayer = true;
             moveSpeed = speed.CurrentSpeed;
@@ -123,12 +163,39 @@ namespace object_pool
         void MoveToPlayer()
         {
             moveSpeed = speed.CurrentSpeed;
-            Vector3 direction = player.position - transform.position;
-            float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.Euler(0, angle, 0);
-            transform.rotation = rotation;
-            transform.position = Vector3.MoveTowards(transform.position, direction, moveSpeed * Time.deltaTime);
-           
+
+
+            if (player != null)
+            {
+                // spiral movement
+                float currentAngle = Time.time * spiralSpeed;
+                float xSpiral = Mathf.Sin(currentAngle) * spiralRadius;
+                float zSpiral = Mathf.Sin(-currentAngle) * spiralRadius;
+
+                Vector3 spiralPosition = new Vector3(xSpiral, 0, zSpiral);
+                Vector3 directionToPlayer = player.position - transform.position;
+                directionToPlayer.y = 0;
+                directionToPlayer.Normalize();
+
+                Vector3 targetPosition = spiralPosition + directionToPlayer * moveSpeed * Time.deltaTime;
+
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+                float playerAngle = Mathf.Atan2(directionToPlayer.x, directionToPlayer.z) * Mathf.Rad2Deg;
+                Quaternion toRotation = Quaternion.Euler(0, playerAngle, 0);
+                transform.rotation = toRotation;
+            }
+            //Previos code
+
+            //{
+            //    moveSpeed = speed.CurrentSpeed;
+            //    Vector3 direction = player.position - transform.position;
+            //    float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            //    Quaternion rotation = Quaternion.Euler(0, angle, 0);
+            //    transform.rotation = rotation;
+            //    transform.position = Vector3.MoveTowards(transform.position, direction, moveSpeed * Time.deltaTime);
+
+            //}
         }
 
         void OnCollisionEnter(Collision other){
@@ -166,6 +233,50 @@ namespace object_pool
             yield return new WaitForSeconds(flashingTime);
             siren.SetActive(false);
             StartCoroutine(FlashingLightSiren());
+        }
+        public void NPCWander()
+        {
+            if (isWandering == false)
+                StartCoroutine(Wander());
+            if (isRotatingRight == true)
+                transform.Rotate(transform.up * Time.deltaTime * rotationSpeed);
+            if (isRotatingLeft == true)
+                transform.Rotate(transform.up * Time.deltaTime * -rotationSpeed);
+            if (isWalking == true)
+                transform.position += transform.forward * patrolSpeed * Time.deltaTime;
+        }
+        IEnumerator Wander()
+        {
+            int timeToRotate = Random.Range(0, 1);
+            int waitAndRotate = Random.Range(0, 1);
+            int walkTimeRange = Random.Range(2, 5);
+            int waitBeforWalk = Random.Range(0,0);
+            int leftOrRightRotation = Random.Range(0, 2);
+
+            isWandering = true;
+
+            yield return new WaitForSeconds(waitBeforWalk);
+            isWalking = true;
+
+            yield return new WaitForSeconds(walkTimeRange);
+            isWalking = false;
+
+            yield return new WaitForSeconds(waitAndRotate);
+
+            if (leftOrRightRotation == 1)
+            {
+                isRotatingRight = true;
+                yield return new WaitForSeconds(timeToRotate);
+                isRotatingRight = false;
+            }
+
+            if (leftOrRightRotation == 2)
+            {
+                isRotatingLeft = true;
+                yield return new WaitForSeconds(timeToRotate);
+                isRotatingLeft = false;
+            }
+            isWandering = false;
         }
     }
 }

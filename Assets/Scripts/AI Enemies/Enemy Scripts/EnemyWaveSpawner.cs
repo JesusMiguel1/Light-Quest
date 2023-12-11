@@ -29,6 +29,8 @@ public class EnemyWaveSpawner : MonoBehaviour
     private GameObject policeInspector;
     GameObject polInspector;
     GameObject wanderRobots;
+    
+    private int wanderAmount;
 
     private GlobalStrings strings;
 
@@ -37,10 +39,20 @@ public class EnemyWaveSpawner : MonoBehaviour
    
     void Start()
     {
-        strings = new GlobalStrings();  
-        policeInspector = Resources.Load(strings.policeInspector, typeof(GameObject)) as GameObject;    
+        wanderAmount = 10;
+        strings = new GlobalStrings();
+        //trigger = Instantiate(Resources.Load(strings.Trigger, typeof(GameObject))) as GameObject;
+        policeInspector = Resources.Load(strings.policeInspector, typeof(GameObject)) as GameObject;
+        wanderRobots = Resources.Load(strings.wanderDrone, typeof(GameObject)) as GameObject;
         waveCountDown = timeToNextWave;
         backMusic.SetActive(false);
+
+        for (int i = 0; i < wanderAmount;  i++)
+        {
+            SpawnWanderDrones();
+
+        }
+        
     }
     void Update()
     {
@@ -53,6 +65,8 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         }
         SpawningPolice();
+
+        //I need to self destroy enemies if they stay alive for to long when to far from player to keep the waves going
     }
 
 
@@ -68,6 +82,14 @@ public class EnemyWaveSpawner : MonoBehaviour
 
             CheckForEnemies();
         }
+    }
+
+    void SpawnWanderDrones()
+    {
+        Vector3 positions = new Vector3(Random.Range(-10, 20), Random.Range(1.8F, 3), Random.Range(-10, 30));
+        GameObject civilians = Instantiate(wanderRobots);
+        civilians.transform.position = positions;
+        civilians.transform.rotation = Quaternion.identity;
     }
 
     void CheckForEnemies()
@@ -129,6 +151,11 @@ public class EnemyWaveSpawner : MonoBehaviour
             {
                 return false;
             }
+            //THIS IS THE RIGHT CODE
+            //if (GameObject.Find(strings.slapperClone) == null)
+            //{
+            //    return false;
+            //}
         }
         
         return true;    
@@ -157,11 +184,6 @@ public class EnemyWaveSpawner : MonoBehaviour
         Transform enemiesSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; 
         _enemies = DronesPoolManager.Instance.GetDrones();
         _enemies.transform.position = enemiesSpawnPoint.position;//new Vector3(UnityEngine.Random.Range(-90, 90), 1f, UnityEngine.Random.Range(-90, 90));
-        _enemies.transform.rotation = enemiesSpawnPoint.rotation;
-    }
-
-    void SpawnWanderRobots()
-    {
-
+        _enemies.transform.rotation =   Quaternion.identity;
     }
 }

@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dronePrefab: {fileID: 8060312172912194145}
-  nextDronePrefab: {fileID: 4449344505805901850, guid: e4322f0e1412dae44b3de21aace6226d,
+  nextDronePrefab: {fileID: 3581606126056124790, guid: e4322f0e1412dae44b3de21aace6226d,
     type: 3}
   prefabsArray: []
 --- !u!54 &-6333865540505204216

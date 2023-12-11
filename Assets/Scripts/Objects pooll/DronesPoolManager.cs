@@ -16,9 +16,8 @@ namespace object_pool
         GameObject[] policeDronePrefab;
         private List<GameObject> drones;
         private List<GameObject> wanders;
-
         private GlobalStrings globalStrings;
-
+        public GameObject trigger;
         private int dronesAmount;
         private int wanderDronesAmount;
         // Start is called before the first frame update
@@ -31,9 +30,9 @@ namespace object_pool
             globalStrings = new GlobalStrings();
             drones = new List<GameObject>(dronesAmount);
             wanders = new List<GameObject>(wanderDronesAmount);
-
+            trigger = Instantiate(Resources.Load(globalStrings.Trigger, typeof(GameObject))) as GameObject;
             firstDrone = Resources.Load(globalStrings.slapper, typeof(GameObject)) as GameObject;
-            wanderDrone = Resources.Load(globalStrings.secondDrone, typeof(GameObject)) as GameObject;
+            wanderDrone = Resources.Load(globalStrings.wanderDrone, typeof(GameObject)) as GameObject;
 
             //policeDronePrefab = new GameObject[] { firstDrone, wanderDrone };
             for (int i = 0; i < dronesAmount; i++)
@@ -46,7 +45,7 @@ namespace object_pool
                 drones.Add(instantiate);
             }
 
-            for (int i = 0;i < dronesAmount; i++) { }
+            //for (int i = 0;i < dronesAmount; i++) { }
         }
 
         public GameObject GetDrones()

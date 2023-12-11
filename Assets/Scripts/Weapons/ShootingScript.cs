@@ -11,7 +11,6 @@ namespace object_pool
         [SerializeField] private Transform rightHandSpawner;
         [SerializeField] private Transform leftHandSpawner;
 
-       
         private LayerMask enemyMask;
         private RaycastHit hit;
         private float distance = 100f;
@@ -45,7 +44,7 @@ namespace object_pool
 
             allowedNames = new HashSet<string> { 
                 strings.slapperClone, 
-                "R1_Enemy(Clone)", 
+                strings.wanderDroneclone, 
                 "Powerup", 
                 strings.EnemyTrigger,
                 strings.policeInspectorClone
@@ -66,10 +65,10 @@ namespace object_pool
 
             if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
             {
-               
+               //The hands will be used here 
             }
-
         }
+
 
         //Raycast to find enemy to shoot at them
         void CheckIfEnemy()
@@ -86,10 +85,10 @@ namespace object_pool
             }
         }
 
+
         private IVRInputDevice GetInput(VRInputDeviceHand hand)
         {
             var device = VRDevice.Device;
-
             //Debug.Log("Checking hands..." + hand);
             return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
         }
@@ -100,7 +99,7 @@ namespace object_pool
             var rightHandInput = GetInput(VRInputDeviceHand.Right);
             var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-            if (rightHandInput.GetButtonDown(VRButton.Trigger))
+            if (rightHandInput.GetButtonDown(VRButton.One)) //One will be replaced for Trigger
             {
                 //WE GONNA THE PULL TRIGGER ANIMATION HERE 
 
@@ -115,7 +114,8 @@ namespace object_pool
                 //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
             }
 
-            //THIS NEEDS TO BE MOVED TO THE HANDS OWN SCRIPT
+            /******THIS NEEDS TO BE MOVED TO THE HANDS OWN SCRIPT******/
+
             if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
             {
                 //We gonna the hands grab animations here 
@@ -124,7 +124,8 @@ namespace object_pool
 
 
 
-            //WE CAN USE THAT AS POWER UP FOR GUNMACHINE SHOOTING
+            /******WE CAN USE THAT AS POWER UP FOR GUNMACHINE SHOOTING*******/
+
             //if (rightHandInput.GetAxis1D(VRAxis.Two) > 0 && powerUp == true)
             //{
             //    //We gonna the hands grab animations here 
@@ -136,25 +137,26 @@ namespace object_pool
 
 
 
-            if (leftHandInput.GetButtonDown(VRButton.Trigger))
-            {
-                //WE GONNA THE PULL TRIGGER ANIMATION HERE 
+            //if (leftHandInput.GetButtonDown(VRButton.Trigger))
+            //{
+            //    //WE GONNA THE PULL TRIGGER ANIMATION HERE 
 
-                //Debug.Log("Lets start shooting");
-                LeftHandShood();
-                audioSource.Play();
-                //if (audioSource != null && audioClip != null)
-                //{
-                //    audioSource.volume = 0.05f;
-                //    audioSource.PlayOneShot(audioClip);
-                //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
-                //}
-            }
-            if (leftHandInput.GetAxis1D(VRAxis.Three) > 0)
-            {
-                //We gonna the hands grab animations here 
-                Debug.Log($"<b> GRABBING LEFT HAND GUN </b>");
-            }
+            //    //Debug.Log("Lets start shooting");
+            //    LeftHandShood();
+            //    audioSource.Play();
+            //    //if (audioSource != null && audioClip != null)
+            //    //{
+            //    //    audioSource.volume = 0.05f;
+            //    //    audioSource.PlayOneShot(audioClip);
+            //    //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
+            //    //}
+            //}
+
+            //if (leftHandInput.GetAxis1D(VRAxis.Three) > 0)
+            //{
+            //    //We gonna the hands grab animations here 
+            //    Debug.Log($"<b> GRABBING LEFT HAND GUN </b>");
+            //}
         }
 
 
@@ -169,15 +171,9 @@ namespace object_pool
                 GameObject bullet = BulletsPoolManager.Instance.GetBullet();
                 bullet.transform.position = rightHandSpawner.position;
                 bullet.transform.rotation = rightHandSpawner.rotation;
-                Debug.DrawRay(rightHandSpawner.position, rightHandSpawner.forward * hit.distance, Color.green) ;
-                //Debug.Log($"<b> WHAT DID I HIT </b> ....{hit.collider.name}");
+                //Debug.DrawRay(rightHandSpawner.position, rightHandSpawner.forward * hit.distance, Color.green) ;
                 trace.transform.position = hit.point;
 
-                //if(hit.collider.name == "EnemyTrigger")
-                //{
-                //    Debug.Log($"<b> DO SOMETHINGT </b> ....{hit.collider.name}");
-                //    hit.collider.gameObject.SetActive(false);
-                //}
                 if (hit.collider.gameObject.name == strings.slapperClone)
                 {
                     AudioManager.Instance.PlayOneShot(hitAudioClip);
@@ -192,25 +188,21 @@ namespace object_pool
 
                 if (allowedNames.Contains(hit.collider.name))
                 {
-                   
-                    // int clipsIndex = Random.Range(0, audioClips.Length);
-
-                    //Debug.Log($"<b>Collision </b> <color=red> <b>{other.gameObject.name}</b> </color>");
                     hit.collider.gameObject.SetActive(false);
                     gbool.inspectorDisabled = true;
                     ColorfullExplosion();
 
                 }
-               
-
-                //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
-                //grenade.transform.position = rightHandSpawner.position;
-                //grenade.transform.rotation = rightHandSpawner.rotation;
-
-                //grenade.GetComponent<Rigidbody>().AddForce( rightHandSpawner.forward * range, ForceMode.Impulse);
 
 
-            }
+                    //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
+                    //grenade.transform.position = rightHandSpawner.position;
+                    //grenade.transform.rotation = rightHandSpawner.rotation;
+
+                    //grenade.GetComponent<Rigidbody>().AddForce( rightHandSpawner.forward * range, ForceMode.Impulse);
+
+
+                }
         }
 
         private void LeftHandShood()
@@ -223,6 +215,7 @@ namespace object_pool
                 bullet.transform.position = leftHandSpawner.position;
                 bullet.transform.rotation = leftHandSpawner.rotation;
                 trace.transform.position = hit.point;
+
                 if (hit.collider.gameObject.name == strings.slapperClone)
                 {
                     AudioManager.Instance.PlayOneShot(hitAudioClip);

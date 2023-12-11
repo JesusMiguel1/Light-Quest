@@ -666,8 +666,6 @@ MonoBehaviour:
   pointB: {fileID: 6412056012148655471, guid: 8e839c091234ad346b4bcb7349f36d24, type: 3}
   pointC: {fileID: 8006011809170404262, guid: 39434ba7c6d15134cbc1136e80e8722d, type: 3}
   siren: {fileID: 2088005709809235179}
-  enemyManager: {fileID: 2472117685462821738, guid: 03f0f0eb07f5b124abd36d275be67aa9,
-    type: 3}
   moveSpeed: 25
   ifMovingToPlayer: 0
   player: {fileID: 7033361905032328129, guid: a0f0b9ef13f25544b9d66ee932d083a2, type: 3}
@@ -686,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dronePrefab: {fileID: 8060312172912194145}
-  nextDronePrefab: {fileID: 4449344505805901850, guid: e4322f0e1412dae44b3de21aace6226d,
+  nextDronePrefab: {fileID: 3581606126056124790, guid: e4322f0e1412dae44b3de21aace6226d,
     type: 3}
   prefabsArray: []
 --- !u!54 &-6333865540505204216

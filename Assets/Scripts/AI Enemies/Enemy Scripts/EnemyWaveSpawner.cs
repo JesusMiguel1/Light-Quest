@@ -30,6 +30,9 @@ public class EnemyWaveSpawner : MonoBehaviour
     GameObject polInspector;
     GameObject wanderRobots;
     
+    GameObject bossPolice;
+    [SerializeField] GameObject bossSpawner; 
+
     private int wanderAmount;
 
     private GlobalStrings strings;
@@ -49,9 +52,11 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         for (int i = 0; i < wanderAmount;  i++)
         {
-            SpawnWanderDrones();
+            //SpawnWanderDrones();
 
         }
+
+        bossPolice = Resources.Load("BOSS", typeof(GameObject)) as GameObject; 
         
     }
     void Update()
@@ -92,6 +97,12 @@ public class EnemyWaveSpawner : MonoBehaviour
         civilians.transform.rotation = Quaternion.identity;
     }
 
+    void SpawnBoss()
+    {
+        GameObject boss = Instantiate(bossPolice);
+        boss.transform.position = bossSpawner.transform.position;
+        
+    }
     void CheckForEnemies()
     {
         if (waveState == SpawnWaveState.WAIT)
@@ -132,6 +143,8 @@ public class EnemyWaveSpawner : MonoBehaviour
 
             Debug.Log($"<b> ALL WAVE COMPLETED! ... </b>");
 
+
+            SpawnBoss(); 
             //HERE WE CAN ADD THE BOSS TO BE SPAWNED AFTER THE LOOP IS COMPLETED.
             //AND ALL A WINNING CHEERS IF THE PLAYR WIN THE GAME 
         }
@@ -147,15 +160,16 @@ public class EnemyWaveSpawner : MonoBehaviour
         if(checkForEnemiesTimer <= 0) 
         {
             checkForEnemiesTimer = 1f;
-            if (GameObject.Find(strings.slapper) == null)
-            {
-                return false;
-            }
-            //THIS IS THE RIGHT CODE
-            //if (GameObject.Find(strings.slapperClone) == null)
+            //if (GameObject.Find(strings.slapper) == null)
             //{
             //    return false;
             //}
+
+            //THIS IS THE RIGHT CODE
+            if (GameObject.Find(strings.slapperClone) == null)
+            {
+                return false;
+            }
         }
         
         return true;    
@@ -167,7 +181,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         for(int i=0; i < _wave.enemyCount; i++)
         {
             SpawnEnemies(_wave.enemies);
-            yield return new WaitForSeconds(1f / _wave.waveRate);
+            yield return new WaitForSeconds(0.5f / _wave.waveRate);
         }
         waveState = SpawnWaveState.WAIT;
         yield break;

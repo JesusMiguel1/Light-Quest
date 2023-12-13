@@ -13,5 +13,5 @@ public class GlobalStrings
     public string EnemyTrigger = "EnemyTrigger(Clone)";
     public string policeInspector = "policeInspector";
     public string policeInspectorClone = "policeInspector(Clone)";
-
+    public string BOSS = "BOSS(Clone)"; 
 }

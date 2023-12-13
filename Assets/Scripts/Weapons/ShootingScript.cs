@@ -27,7 +27,11 @@ namespace object_pool
         GlobalBool gbool;
         //public Grenade grenadeScript; 
 
+        
+
         GameObject explosion;
+
+        
 
         void OnEnable()
         {
@@ -42,12 +46,14 @@ namespace object_pool
             strings = new GlobalStrings();
             gbool = new GlobalBool();
 
-            allowedNames = new HashSet<string> { 
-                strings.slapperClone, 
-                strings.wanderDroneclone, 
-                "Powerup", 
+            allowedNames = new HashSet<string> {
+                strings.slapperClone,
+                strings.wanderDroneclone,
+                "Powerup",
                 strings.EnemyTrigger,
-                strings.policeInspectorClone
+                strings.policeInspectorClone,
+                //strings.BOSS
+                
             };
         }
 
@@ -194,6 +200,7 @@ namespace object_pool
 
                 }
 
+                
 
                     //GameObject grenade = BulletsPoolManager.Instance.GetGrenade();
                     //grenade.transform.position = rightHandSpawner.position;

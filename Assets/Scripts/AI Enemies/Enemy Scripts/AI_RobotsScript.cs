@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace object_pool
-{
     public class AI_RobotsScript : MonoBehaviour
     {
         #region VARIABLES
@@ -110,7 +108,7 @@ namespace object_pool
             if (Physics.Raycast(transform.position, transform.forward, out hit, rayLength))
             {
                 // If an obstacle is detected, adjust the rotation to avoid it
-                Debug.Log($"<b> OBJECT HIT BY THE RAYCAST {hit.collider.name} </b>");
+                //Debug.Log($"<b> OBJECT HIT BY THE RAYCAST {hit.collider.name} </b>");
                 if(obstruction.Contains(hit.collider.name))
                     transform.Rotate(transform.up * Time.deltaTime * rotationSpeed);
             }
@@ -410,4 +408,4 @@ namespace object_pool
         //      SwitchToNextAction();
         //  }
     }
-}
+

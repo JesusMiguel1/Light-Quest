@@ -17,7 +17,7 @@ namespace object_pool
         private List<GameObject> drones;
         private List<GameObject> wanders;
         private GlobalStrings globalStrings;
-        public GameObject trigger;
+        private GameObject trigger;
         private int dronesAmount;
         private int wanderDronesAmount;
         // Start is called before the first frame update

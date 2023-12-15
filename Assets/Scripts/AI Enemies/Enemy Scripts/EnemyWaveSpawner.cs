@@ -3,27 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Wave
+{
+    [HideInInspector] public GameObject enemies;
+    public string waveName;
+    public int enemyCount;
+    public float waveRate;
+}
 public class EnemyWaveSpawner : MonoBehaviour
 {
+    #region VARIABLES
     public enum SpawnWaveState { SPAWNING, WAIT, COUNTER}
-    [System.Serializable]
-    public class Wave
-    {
-        [HideInInspector]public GameObject enemies;
-        public string waveName;
-        public int enemyCount;
-        public float waveRate;
-    }
+    [Header("WAVE OF ENEMIES")]
+    [Tooltip("Here we can set up the number of waves we wants to spawn and the amount " +
+        "of enemies on each wave and also a delay to start the next wave ")]
     public Wave[] enemyWaves;
+    public float waveCountDown;
+    [Header("WAY POINTS SETTINGS")]
+    [Tooltip("Setup the waypoints amount abd add the way point objects the the correponding fields.")]
     public Transform[] spawnPoints;
     private int nextWave = 0;
     private float timeToNextWave = 2f;
-    public float waveCountDown;
     private float checkForEnemiesTimer = 1f;
     private bool stopSpawning = false;
     private bool hasSpawned;
 
     [HideInInspector]public GameObject pipe;
+
+    [Header("ENEMIES TRIGGER")]
+    [Tooltip("A game object that will trigger the enemies if destroyed. In this case we are using the enemy trigger gameobjec.")]
     public GameObject trigger;
     public GameObject backMusic;
     private GameObject policeInspector;
@@ -39,7 +48,11 @@ public class EnemyWaveSpawner : MonoBehaviour
 
 
     private SpawnWaveState waveState = SpawnWaveState.COUNTER;
-   
+    #endregion
+
+
+
+
     void Start()
     {
         wanderAmount = 10;
@@ -52,7 +65,7 @@ public class EnemyWaveSpawner : MonoBehaviour
 
         for (int i = 0; i < wanderAmount;  i++)
         {
-            //SpawnWanderDrones();
+            SpawnWanderDrones();
 
         }
 
@@ -75,7 +88,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     }
 
 
-
+    #region SPAWN POLICE
     void SpawningPolice()
     {
         
@@ -88,6 +101,9 @@ public class EnemyWaveSpawner : MonoBehaviour
             CheckForEnemies();
         }
     }
+    #endregion
+
+
 
     void SpawnWanderDrones()
     {
@@ -142,7 +158,6 @@ public class EnemyWaveSpawner : MonoBehaviour
             nextWave = 0;
 
             Debug.Log($"<b> ALL WAVE COMPLETED! ... </b>");
-
 
             SpawnBoss(); 
             //HERE WE CAN ADD THE BOSS TO BE SPAWNED AFTER THE LOOP IS COMPLETED.

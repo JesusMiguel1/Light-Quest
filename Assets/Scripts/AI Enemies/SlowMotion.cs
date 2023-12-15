@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace object_pool
-{
     public class SlowMotion : MonoBehaviour
     {
         public GameObject cube;
@@ -23,8 +21,6 @@ namespace object_pool
         // Update is called once per frame
         void Update()
         {
-
-
             if (cube.activeInHierarchy)
             {
                 destroyed = false;
@@ -79,4 +75,3 @@ namespace object_pool
 
     }
 
-}

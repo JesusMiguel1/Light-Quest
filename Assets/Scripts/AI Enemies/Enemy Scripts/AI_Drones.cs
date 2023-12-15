@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Jobs;
 using UnityEngine.UIElements;
 
-namespace object_pool
-{
+
     public class AI_Drones : MonoBehaviour
     {
         public float rotationSpeed = 180.0f;
@@ -60,8 +59,8 @@ namespace object_pool
         void OnEnable()
         {
             spiralSpeed = Random.Range(1f, 3f);
-            patrolSpeed = 15;
-            rotationSpeed = 10f;
+            patrolSpeed = 5f;
+            rotationSpeed = 100f;
             StartCoroutine(FlashingLightSiren());
             audioSource = GetComponent<AudioSource>();
 
@@ -80,7 +79,7 @@ namespace object_pool
             ifMovingToPlayer = false;
             //player = Resources.Load()
             //rb = this.GetComponent<Rigidbody>();
-            SetNewTarget();
+            //SetNewTarget();
         }
 
         void Update()
@@ -117,40 +116,40 @@ namespace object_pool
             //    
             //}
         }
-        void PatrolMovement()
-        {
-            //moveSpeed = speed.CurrentSpeed;
-            ifMovingToPlayer = false;
-            pointA.position = new Vector3(0,0, 50f);
-            pointB.position = new Vector3(40, 3, -40f);
-            pointC.position = new Vector3(-40, 0, 0f);
+        //void PatrolMovement()
+        //{
+        //    //moveSpeed = speed.CurrentSpeed;
+        //    ifMovingToPlayer = false;
+        //    pointA.position = new Vector3(0,0, 50f);
+        //    pointB.position = new Vector3(40, 3, -40f);
+        //    pointC.position = new Vector3(-40, 0, 0f);
 
-            transform.position = Vector3.MoveTowards(transform.position, target.position, speed.CurrentSpeed * Time.deltaTime);
+        //    transform.position = Vector3.MoveTowards(transform.position, target.position, speed.CurrentSpeed * Time.deltaTime);
 
-            Vector3 direction = target.position - transform.position;
-            float angle = Mathf.Atan2 (direction.x, direction.z) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.Euler(0, angle, 0);
-            transform.rotation = rotation;
+        //    Vector3 direction = target.position - transform.position;
+        //    float angle = Mathf.Atan2 (direction.x, direction.z) * Mathf.Rad2Deg;
+        //    Quaternion rotation = Quaternion.Euler(0, angle, 0);
+        //    transform.rotation = rotation;
 
 
-            // Check if the object reaches the target position
-            if (Vector3.Distance(transform.position, target.position) < 0.1f)
-            {
-                SetNewTarget();
-            }
-        }
+        //    // Check if the object reaches the target position
+        //    if (Vector3.Distance(transform.position, target.position) < 0.1f)
+        //    {
+        //        SetNewTarget();
+        //    }
+        //}
 
-        void SetNewTarget()
-        {
-            // Randomly select the next target point (A, B, or C)
-            int randomIndex = Random.Range(0, 3);
-            if (randomIndex == 0)
-                target = pointA;
-            else if (randomIndex == 1)
-                target = pointB;
-            else
-                target = pointC;
-        }
+        //void SetNewTarget()
+        //{
+        //    // Randomly select the next target point (A, B, or C)
+        //    int randomIndex = Random.Range(0, 3);
+        //    if (randomIndex == 0)
+        //        target = pointA;
+        //    else if (randomIndex == 1)
+        //        target = pointB;
+        //    else
+        //        target = pointC;
+        //}
 
         IEnumerator StartMoveToPlayer()
         {
@@ -279,4 +278,3 @@ namespace object_pool
             isWandering = false;
         }
     }
-}

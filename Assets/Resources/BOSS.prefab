@@ -590,8 +590,6 @@ GameObject:
   - component: {fileID: 6449333816638488690}
   - component: {fileID: 3966159640872512776}
   - component: {fileID: 8060312172912194147}
-  - component: {fileID: -4757617431728341033}
-  - component: {fileID: -6504410244229579597}
   - component: {fileID: -6333865540505204216}
   - component: {fileID: 1328788441910454822}
   - component: {fileID: 6567339474524549582}
@@ -651,46 +649,6 @@ CapsuleCollider:
   m_Height: 0.06
   m_Direction: 1
   m_Center: {x: 0, y: 0.03, z: 0}
---- !u!114 &-4757617431728341033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8060312172912194145}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 845091760ea79ae47b19da03c2025e57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 180
-  spiralRadius: 25
-  spiralSpeed: 0
-  pointA: {fileID: 3415095860265940418, guid: a4f22aa0dea4d9f4a9b4ca8674f4b72a, type: 3}
-  pointB: {fileID: 6412056012148655471, guid: 8e839c091234ad346b4bcb7349f36d24, type: 3}
-  pointC: {fileID: 8006011809170404262, guid: 39434ba7c6d15134cbc1136e80e8722d, type: 3}
-  siren: {fileID: 2088005709809235179}
-  moveSpeed: 25
-  ifMovingToPlayer: 0
-  player: {fileID: 7033361905032328129, guid: a0f0b9ef13f25544b9d66ee932d083a2, type: 3}
-  audioClips: {fileID: 8300000, guid: 4784d7d50d57fe6409fef8e7901d7e29, type: 3}
-  policeAudioClips: {fileID: 8300000, guid: 5b1192afc49e90840a5179781387a98d, type: 3}
---- !u!114 &-6504410244229579597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8060312172912194145}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812664a2fb1799e4d82be325e714a2f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dronePrefab: {fileID: 8060312172912194145}
-  nextDronePrefab: {fileID: 3581606126056124790, guid: e4322f0e1412dae44b3de21aace6226d,
-    type: 3}
-  prefabsArray: []
 --- !u!54 &-6333865540505204216
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -705,7 +663,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!82 &1328788441910454822
 AudioSource:
@@ -816,4 +774,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaveSpawner: {fileID: 0}
-  bossLife1: 15

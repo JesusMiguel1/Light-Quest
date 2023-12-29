@@ -5,17 +5,20 @@ using UnityEngine;
 public class BossPolice : MonoBehaviour
 {
     public EnemyWaveSpawner enemyWaveSpawner;
+    public GameObject player;
+    public List<GameObject> weakPoints;
     
     private float bossLife1 = 15f;
 
     void Start()
     {
-        
+        weakPoints = new List<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(player.transform.position);
         BossHealth(); 
     }
 
@@ -41,11 +44,14 @@ public class BossPolice : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"<b>COLLIDING WITH BULLET THE BOSS HEALTH LIFE {collision.gameObject.name} </b>");
+       
         if (collision.gameObject.name == "Bullet(Clone)")
         {
+
             bossLife1--;
-            Debug.Log("COLLIDING WITH BULLET THE BOSS HEALTH LIFE " + bossLife1);
+
+
+            //Debug.Log("COLLIDING WITH BULLET THE BOSS HEALTH LIFE " + bossLife1);
         }
     }
 

@@ -774,3 +774,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaveSpawner: {fileID: 0}
+  player: {fileID: 7033361905032328190, guid: a0f0b9ef13f25544b9d66ee932d083a2, type: 3}
+  weakPoints: []

@@ -23,21 +23,21 @@ namespace object_pool
 
         void Update()
         {
-            CheckHand();
+            //CheckHand();
             Fire();
         }
 
         #region GETTING IPUTS FOR THE HANDS
-        void CheckHand()
-        {
-            var rightHandInput = GetInput(VRInputDeviceHand.Right);
-            var leftHandInput = GetInput(VRInputDeviceHand.Left);
+        //void CheckHand()
+        //{
+        //    var rightHandInput = GetInput(VRInputDeviceHand.Right);
+        //    var leftHandInput = GetInput(VRInputDeviceHand.Left);
 
-            if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
-            {
-                //The hands will be used here 
-            }
-        }
+        //    if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
+        //    {
+        //        //The hands will be used here 
+        //    }
+        //}
         #endregion
 
 
@@ -77,11 +77,11 @@ namespace object_pool
 
             /******THIS NEEDS TO BE MOVED TO THE HANDS OWN SCRIPT******/
 
-            if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
-            {
-                //We gonna the hands grab animations here 
-                Debug.Log($"<b> GRABBING RIGHT HAND GUN </b>");
-            }
+            //if (rightHandInput.GetAxis1D(VRAxis.Three) > 0)
+            //{
+            //    //We gonna the hands grab animations here 
+            //    Debug.Log($"<b> GRABBING RIGHT HAND GUN </b>");
+            //}
 
 
 
@@ -97,14 +97,14 @@ namespace object_pool
 
 
 
-
+            //LEFT HAND SHOOTING TRIGGER
             //if (leftHandInput.GetButtonDown(VRButton.Trigger))
             //{
             //    //WE GONNA THE PULL TRIGGER ANIMATION HERE 
 
             //    //Debug.Log("Lets start shooting");
-            //    LeftHandShood();
-            //    audioSource.Play();
+            //    hands.LeftHandShood();
+            //    hands.audioSource.Play();
             //    //if (audioSource != null && audioClip != null)
             //    //{
             //    //    audioSource.volume = 0.05f;

@@ -37,7 +37,7 @@ public class LeftAndRightHand : MonoBehaviour
         gbool = new GlobalBool();
         allowedNames = new HashSet<string> {
                 strings.slapperClone,
-                strings.wanderDroneclone,
+                //strings.wanderDroneclone,
                 "Powerup",
                 strings.EnemyTrigger,
                 strings.policeInspectorClone,

@@ -35,7 +35,7 @@ using UnityEngine;
         void Update()
         {
             NPCWander();
-            Debug.Log($"<b> WHAT ENEMY IS PRINTING{speedTrigger.name}</b>");
+            //Debug.Log($"<b> WHAT ENEMY IS PRINTING{speedTrigger.name}</b>");
             if (!speedTrigger.activeInHierarchy)
             {
                 movingSpeed = 20;

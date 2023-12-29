@@ -105,8 +105,10 @@ using UnityEngine.UIElements;
             // Destroy drone is too far from player too keep the wave going
             float distance = Vector3.Distance(player.position, transform.position);
             
-            if(distance > 200) {
+            if(distance < 5) {
                 Debug.Log($"<b> CHECKING THE DISTANCE BETWEEN PLAYER AND DRONES{distance}</b>");
+
+                //HERE WE CAN INCLUDE POLICE SCORES, EVERYTIME THEY HIT THE PLAYER 
                 gameObject.SetActive(false);
             }
                 
@@ -169,7 +171,7 @@ using UnityEngine.UIElements;
                 // spiral movement
                 float currentAngle = Time.time * spiralSpeed;
                 float xSpiral = Mathf.Sin(currentAngle) * spiralRadius;
-                float zSpiral = Mathf.Sin(-currentAngle) * spiralRadius;
+                float zSpiral = Mathf.Sin(currentAngle) * spiralRadius;
 
                 Vector3 spiralPosition = new Vector3(xSpiral, 0, zSpiral);
                 Vector3 directionToPlayer = player.position - transform.position;
@@ -248,9 +250,9 @@ using UnityEngine.UIElements;
         {
             int timeToRotate = Random.Range(0, 1);
             int waitAndRotate = Random.Range(0, 1);
-            int walkTimeRange = Random.Range(2, 5);
+            int walkTimeRange = Random.Range(1, 3);
             int waitBeforWalk = Random.Range(0,0);
-            int leftOrRightRotation = Random.Range(0, 2);
+            int leftOrRightRotation = Random.Range(0, 1);
 
             isWandering = true;
 

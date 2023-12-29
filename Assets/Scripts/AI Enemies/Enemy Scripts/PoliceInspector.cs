@@ -70,7 +70,7 @@ public class PoliceInspector : MonoBehaviour
 
     void ChooseAction()
     {
-        Debug.Log($"<color=yellow><b>My Selected Goal: {currentGoal}, Selected Action: {currentAction?.Name}</b></color>");
+        //Debug.Log($"<color=yellow><b>My Selected Goal: {currentGoal}, Selected Action: {currentAction?.Name}</b></color>");
         //List<Action> possibleActions = GetPossibleActions();
         //currentPlan = Plan(possibleActions);
 
@@ -123,12 +123,12 @@ public class PoliceInspector : MonoBehaviour
 
         if (currentAction != null)
         {
-            Debug.Log($"<color=yellow><b>Selected Goal: {currentGoal}, Selected Action: {currentAction.Name}</b></color>");
+            //Debug.Log($"<color=yellow><b>Selected Goal: {currentGoal}, Selected Action: {currentAction.Name}</b></color>");
             PerformAction();
         }
         else
         {
-            Debug.Log($"<color=yellow><b>No action selected for goal: {currentGoal}</b></color>");
+            //Debug.Log($"<color=yellow><b>No action selected for goal: {currentGoal}</b></color>");
             ResetOrChooseNewGoal();
         }
 

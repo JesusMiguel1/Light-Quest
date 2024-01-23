@@ -24,7 +24,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     [Tooltip("Setup the waypoints amount abd add the way point objects the the correponding fields.")]
     public Transform[] spawnPoints;
     private int nextWave = 0;
-    private float timeToNextWave = 2f;
+    private float timeToNextWave = 1f;
     private float checkForEnemiesTimer = 1f;
     private bool stopSpawning = false;
     private bool hasSpawned;
@@ -174,7 +174,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         checkForEnemiesTimer -= Time.deltaTime;
         if(checkForEnemiesTimer <= 0) 
         {
-            checkForEnemiesTimer = 1f;
+            checkForEnemiesTimer = 0.2f;
             //if (GameObject.Find(strings.slapper) == null)
             //{
             //    return false;

@@ -59,7 +59,7 @@ using UnityEngine.UIElements;
         void OnEnable()
         {
             spiralSpeed = Random.Range(1f, 3f);
-            patrolSpeed = 5f;
+            patrolSpeed = 15f;
             rotationSpeed = 100f;
             StartCoroutine(FlashingLightSiren());
             audioSource = GetComponent<AudioSource>();
@@ -96,7 +96,7 @@ using UnityEngine.UIElements;
             if (ifMovingToPlayer)
             {
                 MoveToPlayer();
-                speed.CurrentSpeed = 30f;
+                speed.CurrentSpeed = 50f;
             }
             SelfDestruction();
         }
@@ -155,7 +155,7 @@ using UnityEngine.UIElements;
 
         IEnumerator StartMoveToPlayer()
         {
-            float timing = 5f;
+            float timing = 3f;
             yield return new WaitForSeconds(timing);
             ifMovingToPlayer = true;
             moveSpeed = speed.CurrentSpeed;

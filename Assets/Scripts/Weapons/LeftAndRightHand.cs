@@ -13,6 +13,7 @@ public class LeftAndRightHand : MonoBehaviour
 
     public TrailRenderer bulletTrace;
 
+    [SerializeField] private GameObject shatteredBottle;
     [SerializeField] private Transform rightHandSpawner;
     [SerializeField] private Transform leftHandSpawner;
     GlobalBool gbool;
@@ -28,7 +29,7 @@ public class LeftAndRightHand : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioManager = GetComponent<AudioManager>();
-
+        shatteredBottle.SetActive(false);
     }
 
     void Start()
@@ -39,6 +40,7 @@ public class LeftAndRightHand : MonoBehaviour
                 strings.slapperClone,
                 //strings.wanderDroneclone,
                 "Powerup",
+                strings.Bottle,
                 strings.EnemyTrigger,
                 strings.policeInspectorClone,
 
@@ -76,6 +78,14 @@ public class LeftAndRightHand : MonoBehaviour
                 hit.collider.gameObject.SetActive(false);
                 gbool.inspectorDisabled = true;
                 ColorfullExplosion();
+
+            }
+            if (hit.collider.name == strings.Bottle)
+            {
+                hit.collider.gameObject.SetActive(false);
+                //gbool.inspectorDisabled = true;
+                shatteredBottle.SetActive(true);
+               // ColorfullExplosion();
 
             }
 

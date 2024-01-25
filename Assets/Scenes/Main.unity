@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: af0fa615097f2854180689022d4a33a4, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -87,7 +87,7 @@ LightmapSettings:
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
     m_PVREnvironmentMIS: 1
-    m_PVRCulling: 1
+    m_PVRCulling: 0
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
@@ -2118,6 +2118,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: VRGameScene
       objectReference: {fileID: 0}
+    - target: {fileID: -7715334141403328749, guid: f6350b953d6121b4d81ecedc9d550895,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: eebd97b48cee28142b24ac7a927a6f17, type: 2}
+    - target: {fileID: -7715334141403328749, guid: f6350b953d6121b4d81ecedc9d550895,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eebd97b48cee28142b24ac7a927a6f17, type: 2}
+    - target: {fileID: -4345322888478273756, guid: f6350b953d6121b4d81ecedc9d550895,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f1b219ea565c724593c9d6ea545dc0d, type: 2}
     - target: {fileID: -4216859302048453862, guid: f6350b953d6121b4d81ecedc9d550895,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2193,16 +2208,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0f1b219ea565c724593c9d6ea545dc0d, type: 2}
-    - target: {fileID: -7715334141403328749, guid: f6350b953d6121b4d81ecedc9d550895,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 987693b43994a6c4eb6047ec706a1c2c, type: 2}
-    - target: {fileID: -4345322888478273756, guid: f6350b953d6121b4d81ecedc9d550895,
+    - target: {fileID: 8304545770963488453, guid: f6350b953d6121b4d81ecedc9d550895,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0f1b219ea565c724593c9d6ea545dc0d, type: 2}
+      objectReference: {fileID: 2100000, guid: eebd97b48cee28142b24ac7a927a6f17, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6350b953d6121b4d81ecedc9d550895, type: 3}
 --- !u!1 &488769309 stripped

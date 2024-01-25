@@ -3,7 +3,17 @@ guid: f6350b953d6121b4d81ecedc9d550895
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Scene colors
+    second: {fileID: 2800000, guid: 962b21d332213df43bd758ea199196e6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: windowsMaterial
+    second: {fileID: 2800000, guid: 1979a61f67fbd2843a183a31e8a51a32, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

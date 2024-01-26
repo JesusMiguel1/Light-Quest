@@ -15,5 +15,6 @@ public class GlobalStrings
     public string policeInspectorClone = "policeInspector(Clone)";
     public string BOSS = "BOSS(Clone)";
     public string Bottle = "bottle";
+    public string BottleClone = "bottle(Clone)";
     public string ShatteredBottle = "brokenbottle";
 }

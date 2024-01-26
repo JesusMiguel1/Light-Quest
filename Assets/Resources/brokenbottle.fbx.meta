@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BrokenBotMat
-    second: {fileID: 2100000, guid: 15af66fba8fdf594cbc057fb3d1dcf53, type: 2}
+    second: {fileID: 2100000, guid: c6bc69e44cc8e40419757f6f4e4320b2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: No Name
-    second: {fileID: 2100000, guid: ed6ce8edbc6e0e247b98260190293e9f, type: 2}
+    second: {fileID: 2100000, guid: ea353e20cb71f62458119d9c9d9ba36c, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: BorkenBottleMat
-    second: {fileID: 2800000, guid: d4ff08a0a0d55e74abcddc60677a2e5c, type: 3}
+    second: {fileID: 2800000, guid: a39cf9a40fcad3d498a445f44cf5d550, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

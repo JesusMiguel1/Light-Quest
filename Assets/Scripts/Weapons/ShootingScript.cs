@@ -98,20 +98,20 @@ namespace object_pool
 
 
             // LEFT HAND SHOOTING TRIGGER
-            if (leftHandInput.GetButtonDown(VRButton.Trigger))
-            {
-                //WE GONNA THE PULL TRIGGER ANIMATION HERE 
+            //if (leftHandInput.GetButtonDown(VRButton.Trigger))
+            //{
+            //    //WE GONNA THE PULL TRIGGER ANIMATION HERE 
 
-                //Debug.Log("Lets start shooting");
-                hands.LeftHandShood();
-                hands.audioSource.Play();
-                //if (audioSource != null && audioClip != null)
-                //{
-                //    audioSource.volume = 0.05f;
-                //    audioSource.PlayOneShot(audioClip);
-                //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
-                //}
-            }
+            //    //Debug.Log("Lets start shooting");
+            //    hands.LeftHandShood();
+            //    hands.audioSource.Play();
+            //    //if (audioSource != null && audioClip != null)
+            //    //{
+            //    //    audioSource.volume = 0.05f;
+            //    //    audioSource.PlayOneShot(audioClip);
+            //    //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
+            //    //}
+            //}
 
             //if (leftHandInput.GetAxis1D(VRAxis.Three) > 0)
             //{

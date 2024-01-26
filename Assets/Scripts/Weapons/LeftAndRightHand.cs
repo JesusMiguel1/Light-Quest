@@ -13,13 +13,14 @@ public class LeftAndRightHand : MonoBehaviour
 
     public TrailRenderer bulletTrace;
 
-    [SerializeField] private GameObject shatteredBottle;
+    //[SerializeField] private GameObject shatteredBottle;
     [SerializeField] private Transform rightHandSpawner;
     [SerializeField] private Transform leftHandSpawner;
     GlobalBool gbool;
     //public Grenade grenadeScript; 
 
     GameObject explosion;
+    GameObject glasses;
 
     private HashSet<string> allowedNames;
 
@@ -29,7 +30,7 @@ public class LeftAndRightHand : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioManager = GetComponent<AudioManager>();
-        shatteredBottle.SetActive(false);
+        //shatteredBottle.SetActive(false);
     }
 
     void Start()
@@ -41,6 +42,7 @@ public class LeftAndRightHand : MonoBehaviour
                 //strings.wanderDroneclone,
                 "Powerup",
                 strings.Bottle,
+                strings.BottleClone,
                 strings.EnemyTrigger,
                 strings.policeInspectorClone,
 
@@ -61,6 +63,8 @@ public class LeftAndRightHand : MonoBehaviour
             //Debug.DrawRay(rightHandSpawner.position, rightHandSpawner.forward * hit.distance, Color.green) ;
             trace.transform.position = hit.point;
 
+            Debug.Log("LETS SEE IF i FOUNF THE BOTTLES..."+hit.collider.gameObject.name);
+
             if (hit.collider.gameObject.name == strings.slapperClone)
             {
                 AudioManager.Instance.PlayOneShot(hitAudioClip);
@@ -80,12 +84,14 @@ public class LeftAndRightHand : MonoBehaviour
                 ColorfullExplosion();
 
             }
-            if (hit.collider.name == strings.Bottle)
+            if (hit.collider.name == strings.BottleClone)
             {
                 hit.collider.gameObject.SetActive(false);
                 //gbool.inspectorDisabled = true;
-                shatteredBottle.SetActive(true);
-               // ColorfullExplosion();
+               
+                //shatteredBottle.SetActive(true);
+                ShatteredBottle();
+                // ColorfullExplosion();
 
             }
 
@@ -135,6 +141,11 @@ public class LeftAndRightHand : MonoBehaviour
 
 
     #region INSTANTIATING EXPLOSION USING BULLET POOL
+    void ShatteredBottle()
+    {
+        glasses = ShatteredBottlePoolManager.Instance.GetGlasses();
+        glasses.transform.position = hit.point;
+    }
     void ColorfullExplosion()
     {
         explosion = DestructiblePoolManager.Instance.GetPieces();

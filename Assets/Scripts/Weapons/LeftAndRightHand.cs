@@ -16,6 +16,8 @@ public class LeftAndRightHand : MonoBehaviour
     //[SerializeField] private GameObject shatteredBottle;
     [SerializeField] private Transform rightHandSpawner;
     [SerializeField] private Transform leftHandSpawner;
+
+
     GlobalBool gbool;
     //public Grenade grenadeScript; 
 
@@ -52,7 +54,7 @@ public class LeftAndRightHand : MonoBehaviour
     }
     public void RightHandShood()
     {
-        var trace = Instantiate(bulletTrace, rightHandSpawner.position, Quaternion.identity);
+        var trace = Instantiate(bulletTrace, rightHandSpawner.position, rightHandSpawner.rotation);
         trace.AddPosition(rightHandSpawner.position);
 
         if (Physics.Raycast(rightHandSpawner.position, rightHandSpawner.forward, out hit))
@@ -62,7 +64,7 @@ public class LeftAndRightHand : MonoBehaviour
             bullet.transform.rotation = rightHandSpawner.rotation;
             //Debug.DrawRay(rightHandSpawner.position, rightHandSpawner.forward * hit.distance, Color.green) ;
             trace.transform.position = hit.point;
-
+            //HitSpark();
             Debug.Log("LETS SEE IF i FOUNF THE BOTTLES..."+hit.collider.gameObject.name);
 
             if (hit.collider.gameObject.name == strings.slapperClone)
@@ -117,7 +119,7 @@ public class LeftAndRightHand : MonoBehaviour
             bullet.transform.position = leftHandSpawner.position;
             bullet.transform.rotation = leftHandSpawner.rotation;
             trace.transform.position = hit.point;
-
+            HitSpark();
             if (hit.collider.gameObject.name == strings.slapperClone)
             {
                 AudioManager.Instance.PlayOneShot(hitAudioClip);
@@ -152,5 +154,24 @@ public class LeftAndRightHand : MonoBehaviour
         explosion.transform.position = hit.point;
 
     }
+    public void HitSpark()
+    {
+        GameObject hitSpark = HitPointSpark.Instance.GetHitSpark();
+        hitSpark.transform.position = hit.point;
+    }
+
+    public void ShootingSpark()
+    {
+        GameObject sparks = SparkPool.Instance.GetSpark();
+        sparks.transform.position = rightHandSpawner.position;
+        sparks.transform.rotation = rightHandSpawner.rotation;
+    }
+    public void LeftShootingSpark()
+    {
+        GameObject sparks = SparkPool.Instance.GetSpark();
+        sparks.transform.position = leftHandSpawner.position;
+        sparks.transform.rotation = leftHandSpawner.rotation;
+    }
+
     #endregion
 }

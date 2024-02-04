@@ -18,7 +18,7 @@ public class BottlePool : MonoBehaviour
         bottlelist = new List<GameObject>();
         bottle = Resources.Load(strings.Bottle, typeof(GameObject)) as GameObject;
        
-        bottle.transform.localScale = new Vector3(35f,35f,35f);
+        bottle.transform.localScale = new Vector3(15f,15f,15f);
 
 
         for (int i = 0; i < amountOfBottles; i++)

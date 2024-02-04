@@ -19,6 +19,7 @@ namespace object_pool
         {
             //enemyMask = 1 << 9;
             hands = GetComponent<LeftAndRightHand>();
+            
         }
 
         void Update()
@@ -66,7 +67,10 @@ namespace object_pool
 
                 //Debug.Log("Lets start shooting");
                 hands.RightHandShood();
+                hands.ShootingSpark();
+                hands.HitSpark();
                 hands.audioSource.Play();
+               
                 //if (audioSource != null && audioClip != null)
                 //{
                 //    audioSource.volume = 0.05f;
@@ -74,6 +78,7 @@ namespace object_pool
                 //}
                 //FindObjectOfType<AudioIntroManager>().PlaySound("Shoot");
             }
+
 
             /******THIS NEEDS TO BE MOVED TO THE HANDS OWN SCRIPT******/
 
@@ -104,6 +109,7 @@ namespace object_pool
 
             //    //Debug.Log("Lets start shooting");
             //    hands.LeftHandShood();
+            //    hands.LeftShootingSpark();
             //    hands.audioSource.Play();
             //    //if (audioSource != null && audioClip != null)
             //    //{

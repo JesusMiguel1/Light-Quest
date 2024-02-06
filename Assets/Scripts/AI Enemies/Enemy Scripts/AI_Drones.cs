@@ -173,9 +173,9 @@ using UnityEngine.UIElements;
                 float xSpiral = Mathf.Sin(currentAngle) * spiralRadius;
                 float zSpiral = Mathf.Sin(currentAngle) * spiralRadius;
 
-                Vector3 spiralPosition = new Vector3(xSpiral, 0, zSpiral);
+                Vector3 spiralPosition = new Vector3(xSpiral, 4, zSpiral);
                 Vector3 directionToPlayer = player.position - transform.position;
-                directionToPlayer.y = 0;
+                directionToPlayer.y = 5;
                 directionToPlayer.Normalize();
 
                 Vector3 targetPosition = spiralPosition + directionToPlayer * moveSpeed * Time.deltaTime;

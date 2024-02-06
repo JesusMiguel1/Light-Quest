@@ -25,7 +25,7 @@ public class BottlePool : MonoBehaviour
         {
             GameObject instantiate = Instantiate(bottle);
             //instantiate.transform.position = new Vector3(5f, -5.2236f, 10f);
-            instantiate.transform.position = new Vector3(Random.Range(-20, 20), -5.2236f, Random.Range(-10, 40));
+            instantiate.transform.position = new Vector3(Random.Range(-20, 20), 1.5f, Random.Range(-10, 40));
             instantiate.transform.SetParent(transform);
             bottlelist.Add(instantiate);
         }

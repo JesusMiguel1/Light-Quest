@@ -158,6 +158,10 @@ public class LeftAndRightHand : MonoBehaviour
     {
         GameObject hitSpark = HitPointSpark.Instance.GetHitSpark();
         hitSpark.transform.position = hit.point;
+        if(hitSpark.transform.position == hit.point) 
+        {
+            hitSpark.transform.localScale = new Vector3(17f, 17f, 17f);
+        }
     }
 
     public void ShootingSpark()

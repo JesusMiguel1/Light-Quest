@@ -305,7 +305,7 @@ public class PoliceInspector : MonoBehaviour
         isMoving = true;
         float moveSpeed = 4f;
 
-        Vector3 randomPosition = new Vector3(Random.Range(-20f, 30f), 2f, Random.Range(-10f, 40f));
+        Vector3 randomPosition = new Vector3(Random.Range(-20f, 30f), 6f, Random.Range(-10f, 40f));
         StartCoroutine(MoveToPosition(randomPosition, moveSpeed));
         //Debug.Log($"<b>isMoving set to {isMoving}</b>");
 

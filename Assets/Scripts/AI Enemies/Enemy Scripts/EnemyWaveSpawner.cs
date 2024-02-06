@@ -50,9 +50,6 @@ public class EnemyWaveSpawner : MonoBehaviour
     private SpawnWaveState waveState = SpawnWaveState.COUNTER;
     #endregion
 
-
-
-
     void Start()
     {
         wanderAmount = 10;
@@ -107,7 +104,7 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     void SpawnWanderDrones()
     {
-        Vector3 positions = new Vector3(Random.Range(-10, 20), Random.Range(1.8F, 3), Random.Range(-10, 30));
+        Vector3 positions = new Vector3(Random.Range(-10, 20), Random.Range(6.8F, 10f), Random.Range(-10, 30));
         GameObject civilians = Instantiate(wanderRobots);
         civilians.transform.position = positions;
         civilians.transform.rotation = Quaternion.identity;
@@ -203,7 +200,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     }
     void SpawnInspector()
     {
-        Vector3 position = new Vector3(15f, 0, 90f);
+        Vector3 position = new Vector3(15f, 15, 90f);
         GameObject police = Instantiate(policeInspector);
         police.transform.position = position;
         police.transform.rotation = Quaternion.identity;
